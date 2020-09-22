@@ -1,0 +1,68 @@
+body {
+    width: 600px;
+    /* height: 500px; */
+    background-color: rgba(91, 151, 91, 0.75);
+}
+
+.findQuotesWrapper {
+    /* background-color: rgba(138, 0, 138, 0.329); */
+    margin: auto;
+    text-align: center;
+}
+
+#displayTable {
+    /* background-color: rgba(91, 151, 91, .75); */
+}
+
+th, td {
+    padding: 5px;
+    align-content: center;
+    text-align: center;
+}
+
+table {
+    margin-top: 10px;
+    border-collapse: collapse;
+    color: rgb(32, 24, 7)
+}
+
+tr {
+    border: 1px solid rgb(44, 29, 0);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(91, 151, 91, 0.5);
+}
+
+
+tr button {
+    visibility: hidden;
+}
+
+tr:hover {
+    background-color: rgb(48, 131, 0);
+}
+
+tr:hover button {
+    visibility: visible;
+    /* font-size: large; */
+}
+
+tr:hover button:active {
+    visibility: visible;
+    background-color: grey;
+}
+
+.clear {
+    visibility: hidden;
+}
+
+a {
+    color: rgb(26, 18, 3);
+}
+
+#loading {
+    text-align: center;
+    margin: auto;
+    margin-top: 5px;
+}

@@ -1,0 +1,49 @@
+{
+    "manifest_version": 2,
+    "name": "Quote Finder",
+    "description": "This extension allows you to find quotes based on your writing",
+    "version": "0.1",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "declarativeContent",
+        "webRequest",
+        "contextMenus"
+    ],
+    "icons": {
+        "16": "icon-16.png",
+        "48": "icon-48.png",
+        "128": "icon-128.png"
+    },
+    "browser_action": {
+        "default_icon": "icon-128.png",
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://docs.google.com/document/*"
+            ],
+            "js": [
+                "googleDocsUtil.js",
+                "handleGoogleDoc.js"
+            ]
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "exclude_matches": [
+                "https://docs.google.com/document/*"
+            ],
+            "js": [
+                "handleGeneric.js"
+            ]
+        }
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    }
+}
