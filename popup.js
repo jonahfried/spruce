@@ -1,33 +1,50 @@
 window.addEventListener("DOMContentLoaded", function () {
 
+    handleLocalStore();
+
     var quoteFinder = document.getElementById("findQuotes");
 
-    quoteFinder.addEventListener("click", function () {
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            chrome.tabs.sendMessage(tabs[0].id, { inputRequest: "hello" }, function (response) {
-                var userText = response.farewell
+    quoteFinder.addEventListener("click", searchPage);
+});
 
-                var table = $("#displayTable");
-                table.addClass("clear");
-                table.html("<tr><th>Copy</th><th>Quotes</th><th>Source</th></tr>");
 
-                var loading = $("#loading");
-                loading.removeClass("clear");
+function handleLocalStore() {
+    if (localStorage["text"] != undefined) {
+        var input_data = { "query": localStorage["text"], "doc_mode": true };
+        $.ajax({
+            method: "POST",
+            url: "http://aws2.datamuse.com:5000/sentences",
+            contentType: "application/json",
+            data: JSON.stringify(input_data)
+        }).done(displayQuery);
+    }
+    localStorage.clear();
+}
 
-                // Query the server that performs the quote finding
-                var input_data = { "query": userText, "doc_mode": true };
-                $.ajax({
-                    method: "POST",
-                    url: "http://aws2.datamuse.com:5000/sentences",
-                    contentType: "application/json",
-                    data: JSON.stringify(input_data)
-                }).done(displayQuery);
+function searchPage() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { inputRequest: "hello" }, function (response) {
+            var userText = response.farewell
 
-                // loading.toggleClass("clear");
-            })
+            var table = $("#displayTable");
+            table.addClass("clear");
+            table.html("<tr><th>Copy</th><th>Quotes</th><th>Source</th></tr>");
+
+            var loading = $("#loading");
+            loading.removeClass("clear");
+
+            var input_data = { "query": userText, "doc_mode": true };
+            $.ajax({
+                method: "POST",
+                url: "http://aws2.datamuse.com:5000/sentences",
+                contentType: "application/json",
+                data: JSON.stringify(input_data)
+            }).done(displayQuery);
+
+            // loading.toggleClass("clear");
         })
     })
-});
+}
 
 
 function displayQuery(d) {

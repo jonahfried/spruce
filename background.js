@@ -1,7 +1,9 @@
 function getContextClickHandler() {
     return function (info, tab) {
         // The srcUrl property is only available for image elements.
-        var url = 'popup.html#' + info.srcUrl;
+        var url = 'popup.html#';
+
+        localStorage["text"] = info.selectionText;
 
         // Create a new window to the info page.
         chrome.windows.create({ url: url, width: 520, height: 660 });

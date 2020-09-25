@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Quote Finder",
+    "name": "Spruce",
     "description": "This extension allows you to find quotes based on your writing",
     "version": "0.1",
     "permissions": [
