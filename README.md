@@ -1,4 +1,4 @@
-![Spruce](./icon-128.png)
+![Spruce](./icons/icon-128.png)
 
 # Spruce
 
