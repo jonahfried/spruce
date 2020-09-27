@@ -17,7 +17,9 @@ function handleLocalStore() {
             contentType: "application/json",
             data: JSON.stringify(input_data)
         }).done(displayQuery);
+        $("body").css("width", "100%");
     }
+    // Do we want to put this in the conditional?
     localStorage.clear();
 }
 

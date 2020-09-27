@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Spruce",
-    "description": "This extension allows you to find quotes based on your writing",
+    "description": "Spruce is a powerful tool for exploring famous quotes related to your writing.",
     "version": "0.1",
     "permissions": [
         "storage",
