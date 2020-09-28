@@ -17,10 +17,10 @@ function handleLocalStore() {
             contentType: "application/json",
             data: JSON.stringify(input_data)
         }).done(displayQuery);
-        $("body").css("width", "100%");
+        $("body").css("width", "");
+        // Do we want to put this in the conditional?
+        localStorage.clear();
     }
-    // Do we want to put this in the conditional?
-    localStorage.clear();
 }
 
 function searchPage() {

@@ -6,7 +6,7 @@ function getContextClickHandler() {
         localStorage["text"] = info.selectionText;
 
         // Create a new window to the info page.
-        chrome.windows.create({ url: url, width: 520, height: 660 });
+        chrome.windows.create({ url: url, width: 600, height: 800 });
     }
 }
 

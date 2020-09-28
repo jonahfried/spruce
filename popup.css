@@ -1,7 +1,8 @@
 body {
-    width: 600px;
+    /* width: 600px; */
     /* height: 500px; */
     background-color: rgba(91, 151, 91, 0.75);
+    color: rgb(49, 37, 11);
 }
 
 .findQuotesWrapper {
@@ -23,7 +24,7 @@ th, td {
 table {
     margin-top: 10px;
     border-collapse: collapse;
-    color: rgb(32, 24, 7)
+    color: rgb(32, 24, 7);
 }
 
 tr {
