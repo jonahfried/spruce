@@ -10,15 +10,10 @@ window.addEventListener("DOMContentLoaded", function () {
 
 function handleLocalStore() {
     if (localStorage["text"] != undefined) {
-        var input_data = { "query": localStorage["text"], "doc_mode": true };
-        $.ajax({
-            method: "POST",
-            url: "http://aws2.datamuse.com:5000/sentences",
-            contentType: "application/json",
-            data: JSON.stringify(input_data)
-        }).done(displayQuery);
+        // First we disable the findQuotes button as it isn't necesarry 
+        $("#findQuotes").addClass("clear");
+        queryQuotes(localStorage["text"]);
         $("body").css("width", "");
-        // Do we want to put this in the conditional?
         localStorage.clear();
     }
 }
@@ -28,24 +23,26 @@ function searchPage() {
         chrome.tabs.sendMessage(tabs[0].id, { inputRequest: "hello" }, function (response) {
             var userText = response.farewell
 
-            var table = $("#displayTable");
-            table.addClass("clear");
-            table.html("<tr><th>Copy</th><th>Quotes</th><th>Source</th></tr>");
-
-            var loading = $("#loading");
-            loading.removeClass("clear");
-
-            var input_data = { "query": userText, "doc_mode": true };
-            $.ajax({
-                method: "POST",
-                url: "http://aws2.datamuse.com:5000/sentences",
-                contentType: "application/json",
-                data: JSON.stringify(input_data)
-            }).done(displayQuery);
-
-            // loading.toggleClass("clear");
+            queryQuotes(userText);
         })
     })
+}
+
+function queryQuotes(userText) {
+    var table = $("#displayTable");
+    table.addClass("clear");
+    table.html("<tr><th>Copy</th><th>Quotes</th><th>Source</th></tr>");
+
+    var loading = $("#loading");
+    loading.removeClass("clear");
+
+    var input_data = { "query": userText, "doc_mode": true };
+    $.ajax({
+        method: "POST",
+        url: "http://aws2.datamuse.com:5000/sentences",
+        contentType: "application/json",
+        data: JSON.stringify(input_data)
+    }).done(displayQuery);
 }
 
 
@@ -76,6 +73,7 @@ function displayQuery(d) {
         // Create copy line button that writes to sys clipboard
         let copyButton = $("<button></button>");
         copyButton.append(String.fromCodePoint("0x1f4cb"));
+        copyButton.addClass("btn");
         copyButton.on("click", function () {
             let quotedSentence = '"' + sentence + '" ';
             let citation = "(" + source + ")";

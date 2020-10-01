@@ -15,6 +15,10 @@ body {
     /* background-color: rgba(91, 151, 91, .75); */
 }
 
+button {
+    background-color: lightgrey !important;
+}
+
 th, td {
     padding: 5px;
     align-content: center;
@@ -51,11 +55,11 @@ tr:hover button {
 
 tr:hover button:active {
     visibility: visible;
-    background-color: grey;
+    background-color: grey !important;
 }
 
 .clear {
-    visibility: hidden;
+    display: none !important;
 }
 
 a {
@@ -66,4 +70,8 @@ a {
     text-align: center;
     margin: auto;
     margin-top: 5px;
+}
+
+#spruceLogo {
+    margin-top: 6px;
 }
