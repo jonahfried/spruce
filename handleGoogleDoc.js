@@ -30,7 +30,7 @@ function getText(doc) {
         }
     }
 
-    console.log("Found Doc Text: " + text);
+    // console.log("Found Doc Text: " + text);
 
     return text
 

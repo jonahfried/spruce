@@ -58,6 +58,10 @@ function displayQuery(d) {
         if (sentence == "") {
             continue;
         }
+        // if (sentence.length > 100) { // This number is likely not right
+        //     continue;
+        // }
+        console.log(sentence.length)
         let source = sentences[i].title;
         let sourceLink = $(sentences[i].linked_title);
         sourceLink.on("click", function () {
@@ -91,10 +95,10 @@ function displayQuery(d) {
         row.append(sentenceCell);
         row.append(sourceCell);
         table.append(row);
-        table.removeClass("clear");
-
-        // Get the loading message to hide it
-        $("#loading").addClass("clear");
 
     }
+    table.removeClass("clear");
+
+    // Get the loading message to hide it
+    $("#loading").addClass("clear");
 }
