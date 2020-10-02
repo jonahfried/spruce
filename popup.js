@@ -58,9 +58,9 @@ function displayQuery(d) {
         if (sentence == "") {
             continue;
         }
-        // if (sentence.length > 100) { // This number is likely not right
-        //     continue;
-        // }
+        if (sentence.length > 100) { // This number is likely not right
+            continue;
+        }
         console.log(sentence.length)
         let source = sentences[i].title;
         let sourceLink = $(sentences[i].linked_title);
@@ -75,7 +75,8 @@ function displayQuery(d) {
         sentenceCell.append(sentence);
 
         // Create copy line button that writes to sys clipboard
-        let copyButton = $("<button></button>");
+        // let popoverInfo = "data-toggle='popover' data-content='copied!' data-trigger='focus' data-placement='top'"
+        let copyButton = $("<button data-toggle='popover'></button>");
         copyButton.append(String.fromCodePoint("0x1f4cb"));
         copyButton.addClass("btn");
         copyButton.on("click", function () {
@@ -97,8 +98,13 @@ function displayQuery(d) {
         table.append(row);
 
     }
+    // Now that all of the copyButtons have been created
+    // we can activate their bootstrap popover functionality
+    $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
+
     table.removeClass("clear");
 
     // Get the loading message to hide it
     $("#loading").addClass("clear");
+
 }
