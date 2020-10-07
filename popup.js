@@ -1,3 +1,5 @@
+let quoteServerUrl = "https://api.rhymezone.com/sentences"
+
 window.addEventListener("DOMContentLoaded", function () {
 
     handleLocalStore();
@@ -36,10 +38,10 @@ function queryQuotes(userText) {
     var loading = $("#loading");
     loading.removeClass("clear");
 
-    var input_data = { "query": userText, "doc_mode": true };
+    var input_data = { "query": userText, "doc_mode": true, "wke": false };
     $.ajax({
         method: "POST",
-        url: "http://aws2.datamuse.com:5000/sentences",
+        url: quoteServerUrl,
         contentType: "application/json",
         data: JSON.stringify(input_data)
     }).done(displayQuery);
