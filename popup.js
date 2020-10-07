@@ -1,3 +1,5 @@
+// This is a test commit
+
 window.addEventListener("DOMContentLoaded", function () {
 
     handleLocalStore();
