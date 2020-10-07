@@ -1,4 +1,4 @@
-var quoteServerUrl = "https://api.rhymezone.com/sentences"
+let quoteServerUrl = "https://api.rhymezone.com/sentences"
 
 window.addEventListener("DOMContentLoaded", function () {
 
