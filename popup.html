@@ -21,14 +21,23 @@
 
 <body style="width:600px;">
     <div class="container-fluid">
+
+        <!-- Header -->
         <div class="findQuotesWrapper">
             <img id="spruceLogo" src="icons/icon-128.png" alt="spruce png" height="50" width="50" />
             <h1>Spruce</h1>
             <p>Spruce up your writing!</p>
-            <button id="findQuotes" class="btn">
-                Find Quotes!
-            </button>
+
+            <div class="input-group" id="input-wrapper">
+                <div class="input-group-prepend">
+                    <button class="input-group-text" id="findQuotes">Find Quotes!</button>
+                </div>
+                <textarea id="userInput" class="form-control" aria-label="With textarea"></textarea>
+            </div>
         </div>
+
+
+        <!-- display results -->
         <div class="display">
             <div id="loading" class="clear spinner-border d-flex justify-content-between" role="status"
                 style="display: none;">
