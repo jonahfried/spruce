@@ -1,6 +1,7 @@
-// This is a test commit
+var quoteServerUrl = "https://api.rhymezone.com/sentences"
 
 window.addEventListener("DOMContentLoaded", function () {
+
 
     handleLocalStore();
 
@@ -12,8 +13,8 @@ window.addEventListener("DOMContentLoaded", function () {
 
 function handleLocalStore() {
     if (localStorage["text"] != undefined) {
-        // First we disable the findQuotes button as it isn't necesarry 
-        $("#findQuotes").addClass("clear");
+        // First we disable the findQuotes button as it isn't necessary 
+        $("#input-wrapper").addClass("clear");
         queryQuotes(localStorage["text"]);
         $("body").css("width", "");
         localStorage.clear();
@@ -21,13 +22,14 @@ function handleLocalStore() {
 }
 
 function searchPage() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { inputRequest: "hello" }, function (response) {
-            var userText = response.farewell
 
-            queryQuotes(userText);
-        })
-    })
+    let userInput = $("#userInput");
+    let userText = userInput.val();
+    queryQuotes(userText);
+    // userInput.val("");
+    userInput.select()
+
+
 }
 
 function queryQuotes(userText) {
@@ -38,10 +40,10 @@ function queryQuotes(userText) {
     var loading = $("#loading");
     loading.removeClass("clear");
 
-    var input_data = { "query": userText, "doc_mode": true };
+    var input_data = { "query": userText, "doc_mode": true, "wke": false };
     $.ajax({
         method: "POST",
-        url: "http://aws2.datamuse.com:5000/sentences",
+        url: quoteServerUrl,
         contentType: "application/json",
         data: JSON.stringify(input_data)
     }).done(displayQuery);
@@ -63,7 +65,6 @@ function displayQuery(d) {
         if (sentence.length > 100) { // This number is likely not right
             continue;
         }
-        console.log(sentence.length)
         let source = sentences[i].title;
         let sourceLink = $(sentences[i].linked_title);
         sourceLink.on("click", function () {
