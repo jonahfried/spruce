@@ -75,3 +75,13 @@ a {
 #spruceLogo {
     margin-top: 6px;
 }
+
+.help {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.help:focus {
+    background-color: lightpink;
+}

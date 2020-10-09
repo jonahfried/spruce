@@ -1,17 +1,20 @@
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
 
-        var inputs = document.getElementsByTagName("textArea");
+        if (request.inputRequest == "pageType") {
 
+            sendResponse({ isGoogleDoc: false });
 
-        if (inputs.length == 0) {
-            alert("No input found")
-            return
-        }
+        } else if (request.inputRequest == "hello") {
+            var inputs = document.getElementsByTagName("textArea");
 
-        if (request.inputRequest == "hello") {
+            if (inputs.length == 0) {
+                alert("No input found")
+                return
+            }
+
             console.log("responding");
-            sendResponse({ farewell: inputs[0].value });
+            sendResponse({ isGoogleDoc: false, farewell: inputs[0].value });
         }
     }
 )

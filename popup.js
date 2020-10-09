@@ -2,6 +2,7 @@ let quoteServerUrl = "https://api.rhymezone.com/sentences"
 
 window.addEventListener("DOMContentLoaded", function () {
 
+    handleGoogleDoc();
 
     handleLocalStore();
 
@@ -21,14 +22,36 @@ function handleLocalStore() {
     }
 }
 
+// if the page is a google docs page
+// we disable the input bar
+function handleGoogleDoc() {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { inputRequest: "pageType" }, function (response) {
+            if (response.isGoogleDoc) {
+                $("#input-wrapper").addClass("clear");
+                searchPage();
+            }
+        })
+    });
+}
+
 function searchPage() {
 
-    let userInput = $("#userInput");
-    let userText = userInput.val();
-    queryQuotes(userText);
-    // userInput.val("");
-    userInput.select()
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { inputRequest: "hello" }, function (response) {
+            if (response.isGoogleDoc) {
+                console.log("Google Docs Text Found");
+                var userText = response.googleDocsText
+            } else {
+                console.log("Using Extension Input")
+                let userInput = $("#userInput");
+                var userText = userInput.val();
+                userInput.select()
+            }
+            queryQuotes(userText);
 
+        })
+    });
 
 }
 

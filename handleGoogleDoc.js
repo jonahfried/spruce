@@ -1,19 +1,15 @@
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
+        if (request.inputRequest == "pageType") {
 
-        // var inputs = document.getElementsByTagName("textArea");
-        var googleDoc = googleDocsUtil.getGoogleDocument();
-        var text = getText(googleDoc)
+            sendResponse({ isGoogleDoc: true });
 
-
-        // if (inputs.length == 0) {
-        //     alert("No input found")
-        //     return
-        // }
-
-        if (request.inputRequest == "hello") {
+        } else if (request.inputRequest == "hello") {
+            // var inputs = document.getElementsByTagName("textArea");
+            var googleDoc = googleDocsUtil.getGoogleDocument();
+            var text = getText(googleDoc)
             console.log("responding");
-            sendResponse({ farewell: text });
+            sendResponse({ isGoogleDoc: true, googleDocsText: text });
         }
     }
 )
