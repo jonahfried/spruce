@@ -2,6 +2,8 @@ let quoteServerUrl = "https://api.rhymezone.com/sentences"
 
 window.addEventListener("DOMContentLoaded", function () {
 
+    activateHelpButton()
+
     handleGoogleDoc();
 
     handleLocalStore();
@@ -11,6 +13,19 @@ window.addEventListener("DOMContentLoaded", function () {
     quoteFinder.addEventListener("click", searchPage);
 });
 
+function activateHelpButton() {
+    let content = 'To get started using Spruce just highlight some text, '
+        + 'right click to pull up the context menu, then "Spruce up your selection!" '
+        + 'Otherwise, you can type or paste text below to get quote suggestions. '
+        + '<a class="link" style="color:blue;" href="https://github.com/jonahfried/spruce">Shift-click here for more help.</a>';
+    $('[data-toggle="popover"]').popover({
+        title: "Welcome to Spruce!",
+        content,
+        animation: true,
+        placement: "left",
+        html: true
+    });
+}
 
 function handleLocalStore() {
     if (localStorage["text"] != undefined) {
@@ -58,10 +73,12 @@ function searchPage() {
 function queryQuotes(userText) {
     var table = $("#displayTable");
     table.addClass("clear");
-    table.html("<tr><th>Copy</th><th>Quotes</th><th>Source</th></tr>");
+    table.html("<tr><th>Copy</th><th>Quotes</th><th class='sources'>Sources</th></tr>");
 
     var loading = $("#loading");
     loading.removeClass("clear");
+
+    $("#noResults").addClass("clear")
 
     var input_data = { "query": userText, "doc_mode": true, "wke": false };
     $.ajax({
@@ -78,57 +95,65 @@ function displayQuery(d) {
     var table = $("#displayTable");
 
     let sentences = d.sentences;
-    console.log(sentences);
+    // console.log(sentences);
 
-    for (let i = 0; i < sentences.length; i++) {
-        let sentence = sentences[i].sentence
-        if (sentence == "") {
-            continue;
+    if (sentences.length > 0) {
+        for (let i = 0; i < sentences.length; i++) {
+            let sentence = sentences[i].sentence
+            if (sentence == "") {
+                continue;
+            }
+            // We skip quotes that are too long because they break 
+            // the table css
+            if (sentence.length > 100) { // This number is likely not right
+                continue;
+            }
+            let source = sentences[i].title;
+            let sourceLink = $(sentences[i].linked_title);
+            sourceLink.on("click", function () {
+                chrome.tabs.create({ url: $(this).attr("href") });
+                return false;
+            });
+
+            // Create the table row 
+            let row = $("<tr></tr>");
+            let sentenceCell = $("<td></td>");
+            sentenceCell.append(sentence);
+
+            // Create copy line button that writes to sys clipboard
+            // let popoverInfo = "data-toggle='popover' data-content='copied!' data-trigger='focus' data-placement='top'"
+            let copyButton = $("<button data-toggle='popover'></button>");
+            copyButton.append(String.fromCodePoint("0x1f4cb"));
+            copyButton.addClass("btn");
+            copyButton.on("click", function () {
+                let quotedSentence = '"' + sentence + '" ';
+                let citation = "(" + source + ")";
+                navigator.clipboard.writeText(quotedSentence + citation);
+            });
+            let copyCell = $("<td></td>");
+            copyCell.append(copyButton);
+
+            // Extract and create cell for author 
+            let sourceCell = $("<td></td>");
+            sourceCell.append(sourceLink);
+
+            //  Append data to the row and to the table
+            row.append(copyCell);
+            row.append(sentenceCell);
+            row.append(sourceCell);
+            table.append(row);
+
         }
-        if (sentence.length > 100) { // This number is likely not right
-            continue;
-        }
-        let source = sentences[i].title;
-        let sourceLink = $(sentences[i].linked_title);
-        sourceLink.on("click", function () {
-            chrome.tabs.create({ url: $(this).attr("href") });
-            return false;
-        });
 
-        // Create the table row 
-        let row = $("<tr></tr>");
-        let sentenceCell = $("<td></td>");
-        sentenceCell.append(sentence);
+        $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
 
-        // Create copy line button that writes to sys clipboard
-        // let popoverInfo = "data-toggle='popover' data-content='copied!' data-trigger='focus' data-placement='top'"
-        let copyButton = $("<button data-toggle='popover'></button>");
-        copyButton.append(String.fromCodePoint("0x1f4cb"));
-        copyButton.addClass("btn");
-        copyButton.on("click", function () {
-            let quotedSentence = '"' + sentence + '" ';
-            let citation = "(" + source + ")";
-            navigator.clipboard.writeText(quotedSentence + citation);
-        });
-        let copyCell = $("<td></td>");
-        copyCell.append(copyButton);
-
-        // Extract and create cell for author 
-        let sourceCell = $("<td></td>");
-        sourceCell.append(sourceLink);
-
-        //  Append data to the row and to the table
-        row.append(copyCell);
-        row.append(sentenceCell);
-        row.append(sourceCell);
-        table.append(row);
-
+        table.removeClass("clear");
+    } else {
+        $("#noResults").removeClass("clear")
     }
     // Now that all of the copyButtons have been created
     // we can activate their bootstrap popover functionality
-    $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
 
-    table.removeClass("clear");
 
     // Get the loading message to hide it
     $("#loading").addClass("clear");

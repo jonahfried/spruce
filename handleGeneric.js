@@ -6,15 +6,15 @@ chrome.runtime.onMessage.addListener(
             sendResponse({ isGoogleDoc: false });
 
         } else if (request.inputRequest == "hello") {
-            var inputs = document.getElementsByTagName("textArea");
+            // var inputs = document.getElementsByTagName("textArea");
 
-            if (inputs.length == 0) {
-                alert("No input found")
-                return
-            }
+            // if (inputs.length == 0) {
+            //     alert("No input found")
+            //     return
+            // }
 
             console.log("responding");
-            sendResponse({ isGoogleDoc: false, farewell: inputs[0].value });
+            sendResponse({ isGoogleDoc: false });
         }
     }
 )

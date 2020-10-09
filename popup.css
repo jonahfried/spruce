@@ -3,6 +3,7 @@ body {
     /* height: 500px; */
     background-color: rgba(91, 151, 91, 0.75);
     color: rgb(49, 37, 11);
+    font-family: 'Oxygen';
 }
 
 .findQuotesWrapper {
@@ -84,4 +85,17 @@ a {
 
 .help:focus {
     background-color: lightpink;
+}
+
+.link {
+    color : blue;
+}
+
+#noResults {
+    text-align: center;
+    padding: 15px;
+}
+
+.sources {
+    width: 25%;
 }
