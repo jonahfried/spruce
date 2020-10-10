@@ -23,7 +23,8 @@ function activateHelpButton() {
         content,
         animation: true,
         placement: "left",
-        html: true
+        html: true,
+        trigger: "focus"
     });
 }
 
