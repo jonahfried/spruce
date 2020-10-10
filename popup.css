@@ -84,7 +84,8 @@ a {
 }
 
 .help:focus {
-    background-color: lightpink;
+    outline: none;
+
 }
 
 .link {
@@ -98,4 +99,14 @@ a {
 
 .sources {
     width: 25%;
+}
+
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+    -o-user-select: none;
+    user-select: none;
+    user-drag: none;
 }
