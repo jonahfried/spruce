@@ -97,5 +97,6 @@ a {
 }
 
 .sources {
+    /* aligns table columns */
     width: 25%;
 }
