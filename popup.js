@@ -1,4 +1,6 @@
-let quoteServerUrl = "https://api.rhymezone.com/sentences"
+const MAX_QUOTE_LEN = 300;
+
+let quoteServerUrl = "https://api.rhymezone.com/sentences";
 
 window.addEventListener("DOMContentLoaded", function () {
 
@@ -106,7 +108,7 @@ function displayQuery(d) {
             }
             // We skip quotes that are too long because they break 
             // the table css
-            if (sentence.length > 100) { // This number is likely not right
+            if (sentence.length > MAX_QUOTE_LEN) { // This number is just a guess quick fix
                 continue;
             }
             let source = sentences[i].title;
