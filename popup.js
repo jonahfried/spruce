@@ -81,7 +81,7 @@ function queryQuotes(userText) {
 
     $("#noResults").addClass("clear")
 
-    var input_data = { "query": userText, "doc_mode": true, "wke": false };
+    var input_data = { "query": userText, "doc_mode": true, "selector": "quotes", "wke": false };
     $.ajax({
         method: "POST",
         url: quoteServerUrl,
