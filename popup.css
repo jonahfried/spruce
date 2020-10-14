@@ -17,6 +17,7 @@ body {
 }
 
 button {
+    border: 0px;
     background-color: lightgrey !important;
 }
 
@@ -52,7 +53,11 @@ tr:hover {
 
 tr:hover button {
     visibility: visible;
-    /* font-size: large; */
+    font-size: large;
+    padding: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-radius: 5px;
 }
 
 tr:hover button:active {
