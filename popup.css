@@ -24,6 +24,7 @@ th, td {
     padding: 5px;
     align-content: center;
     text-align: center;
+    border: 1px solid rgb(32, 24, 7) !important;
 }
 
 table {
@@ -58,6 +59,10 @@ tr:hover button:active {
     visibility: visible;
     background-color: grey !important;
 }
+
+/* .table-bordered th, .table-bordered td {
+    border: 1px solid rgb(32, 24, 7);
+} */
 
 .clear {
     display: none !important;

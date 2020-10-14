@@ -76,7 +76,7 @@ function searchPage() {
 function queryQuotes(userText) {
     var table = $("#displayTable");
     table.addClass("clear");
-    table.html("<tr><th>Copy</th><th>Quotes</th><th class='sources'>Sources</th></tr>");
+    // table.html("<tr><th>Copy</th><th>Quotes</th><th class='sources'>Sources</th></tr>");
 
     var loading = $("#loading");
     loading.removeClass("clear");
@@ -93,60 +93,48 @@ function queryQuotes(userText) {
 }
 
 
+
 function displayQuery(d) {
     // Get the table from the popup page
     var table = $("#displayTable");
 
     let sentences = d.sentences;
+    for (let i = 0; i < sentences.length; i++) {
+        sentences[i].test = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
+    }
+    console.log(sentences)
     // console.log(sentences);
 
+    var columns = [
+        { "field": "test", "sortable": false, "title": "Copy" },
+        { "field": "sentence", "sortable": true, "title": "Sentence" },
+        { "field": "linked_title", "sortable": true, "title": "Source" },
+
+        // { "field": "score", "sortable": true, "title": "Match score" },
+        // { "field": "distance", "sortable": true, "title": "Min semantic distance" },
+        // { "field": "occurrence_count", "sortable": true, "title": "Num. sentences matched" }
+    ];
+
     if (sentences.length > 0) {
+        table.bootstrapTable({
+            data: sentences,
+            columns: columns,
+            exportTypes: ['excel', 'csv', 'txt'],
+        });
+
         for (let i = 0; i < sentences.length; i++) {
-            let sentence = sentences[i].sentence
-            if (sentence == "") {
-                continue;
-            }
-            // We skip quotes that are too long because they break 
-            // the table css
-            if (sentence.length > MAX_QUOTE_LEN) { // This number is just a guess quick fix
-                continue;
-            }
-            let source = sentences[i].title;
-            let sourceLink = $(sentences[i].linked_title);
-            sourceLink.on("click", function () {
-                chrome.tabs.create({ url: $(this).attr("href") });
-                return false;
+            let id = "#button" + i;
+            $(id).on("click", function () {
+                let children = $(`[data-index="${i}"]`).children();
+                let text = children[1].innerText;
+                let source = children[2].innerText;
+                navigator.clipboard.writeText(`"${text}" (${source})`);
             });
-
-            // Create the table row 
-            let row = $("<tr></tr>");
-            let sentenceCell = $("<td></td>");
-            sentenceCell.append(sentence);
-
-            // Create copy line button that writes to sys clipboard
-            // let popoverInfo = "data-toggle='popover' data-content='copied!' data-trigger='focus' data-placement='top'"
-            let copyButton = $("<button data-toggle='popover'></button>");
-            copyButton.append(String.fromCodePoint("0x1f4cb"));
-            copyButton.addClass("btn");
-            copyButton.on("click", function () {
-                let quotedSentence = '"' + sentence + '" ';
-                let citation = "(" + source + ")";
-                navigator.clipboard.writeText(quotedSentence + citation);
-            });
-            let copyCell = $("<td></td>");
-            copyCell.append(copyButton);
-
-            // Extract and create cell for author 
-            let sourceCell = $("<td></td>");
-            sourceCell.append(sourceLink);
-
-            //  Append data to the row and to the table
-            row.append(copyCell);
-            row.append(sentenceCell);
-            row.append(sourceCell);
-            table.append(row);
-
         }
+
+        $("a").on("click", function () {
+            chrome.tabs.create({ url: $(this).href })
+        })
 
         $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
 
@@ -162,3 +150,74 @@ function displayQuery(d) {
     $("#loading").addClass("clear");
 
 }
+
+
+// function displayQuery(d) {
+//     // Get the table from the popup page
+//     var table = $("#displayTable");
+
+//     let sentences = d.sentences;
+//     // console.log(sentences);
+
+//     if (sentences.length > 0) {
+//         for (let i = 0; i < sentences.length; i++) {
+//             let sentence = sentences[i].sentence
+//             if (sentence == "") {
+//                 continue;
+//             }
+//             // We skip quotes that are too long because they break 
+//             // the table css
+//             if (sentence.length > MAX_QUOTE_LEN) { // This number is just a guess quick fix
+//                 continue;
+//             }
+//             let source = sentences[i].title;
+//             let sourceLink = $(sentences[i].linked_title);
+//             sourceLink.on("click", function () {
+//                 chrome.tabs.create({ url: $(this).attr("href") });
+//                 return false;
+//             });
+
+//             // Create the table row 
+//             let row = $("<tr></tr>");
+//             let sentenceCell = $("<td></td>");
+//             sentenceCell.append(sentence);
+
+//             // Create copy line button that writes to sys clipboard
+//             // let popoverInfo = "data-toggle='popover' data-content='copied!' data-trigger='focus' data-placement='top'"
+//             let copyButton = $("<button data-toggle='popover'></button>");
+//             copyButton.append(String.fromCodePoint("0x1f4cb"));
+//             copyButton.addClass("btn");
+//             copyButton.on("click", function () {
+//                 let quotedSentence = '"' + sentence + '" ';
+//                 let citation = "(" + source + ")";
+//                 navigator.clipboard.writeText(quotedSentence + citation);
+//             });
+//             let copyCell = $("<td></td>");
+//             copyCell.append(copyButton);
+
+//             // Extract and create cell for author 
+//             let sourceCell = $("<td></td>");
+//             sourceCell.append(sourceLink);
+
+//             //  Append data to the row and to the table
+//             row.append(copyCell);
+//             row.append(sentenceCell);
+//             row.append(sourceCell);
+//             table.append(row);
+
+//         }
+
+//         $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
+
+//         table.removeClass("clear");
+//     } else {
+//         $("#noResults").removeClass("clear")
+//     }
+//     // Now that all of the copyButtons have been created
+//     // we can activate their bootstrap popover functionality
+
+
+//     // Get the loading message to hide it
+//     $("#loading").addClass("clear");
+
+// }
