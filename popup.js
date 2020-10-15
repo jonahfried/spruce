@@ -83,7 +83,7 @@ function queryQuotes(userText) {
 
     $("#noResults").addClass("clear")
 
-    var input_data = { "query": userText, "doc_mode": true, "selector": "quotes", "wke": false };
+    var input_data = { "query": userText, "doc_mode": true, "selector": getQueryType(), "wke": false };
     $.ajax({
         method: "POST",
         url: quoteServerUrl,
@@ -92,6 +92,9 @@ function queryQuotes(userText) {
     }).done(displayQuery);
 }
 
+function getQueryType() {
+    return $("#quoteTypeForm [name='option']:checked").val()
+}
 
 
 function displayQuery(d) {
@@ -133,10 +136,12 @@ function displayQuery(d) {
         }
 
         $("a").on("click", function () {
-            chrome.tabs.create({ url: $(this).href })
-        })
+            chrome.tabs.create({ url: $(this).attr("href") });
+        });
 
         $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
+
+        $("[data-field='sentence']").css("width", "66%");
 
         table.removeClass("clear");
     } else {
