@@ -117,13 +117,14 @@ function displayQuery(d) {
 
     let sentences = d.sentences;
     for (let i = 0; i < sentences.length; i++) {
-        sentences[i].test = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
+        let buttons = `<div><button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
+        sentences[i].buttons = buttons
     }
     console.log(sentences)
     // console.log(sentences);
 
     var columns = [
-        { "field": "test", "sortable": false, "title": "Copy" },
+        { "field": "buttons", "sortable": false, "title": "Copy" },
         { "field": "sentence", "sortable": true, "title": "Sentence" },
         { "field": "linked_title", "sortable": true, "title": "Source" },
         { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" }
