@@ -26,6 +26,7 @@ function activateHelpButton() {
     let content = 'To get started using Spruce just highlight some text, '
         + 'right click to pull up the context menu, then "Spruce up your selection!" '
         + 'Otherwise, you can type or paste text below to get quote suggestions. '
+        + "Before citing a quote in your document, click on the source to search Google and verify that it's accurately attributed."
         + '<a id="github-link" class="link" style="color:blue;" href="https://github.com/jonahfried/spruce"> Click here for more help.</a>';
     $('[data-toggle="popover"]').popover({
         title: "Welcome to Spruce!",
@@ -97,7 +98,7 @@ function queryQuotes(userText) {
 
     $("#noResults").addClass("clear")
 
-    var input_data = { "query": userText, "doc_mode": true, "selector": getQueryType(), "wke": false };
+    var input_data = { "query": userText, "doc_mode": true, "selector": getQueryType(), "max_results": 20, "wke": false };
     $.ajax({
         method: "POST",
         url: quoteServerUrl,
