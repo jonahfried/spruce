@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", function () {
     quoteFinder.addEventListener("click", searchPage);
 
     document.getElementById("userInput").addEventListener("keydown", function (e) {
-        if (e.key == "Enter" && e.metaKey) {
+        if (e.metaKey && e.key == "Enter") {
             e.preventDefault();
             searchPage(this.value);
         }
@@ -126,6 +126,7 @@ function displayQuery(d) {
         { "field": "test", "sortable": false, "title": "Copy" },
         { "field": "sentence", "sortable": true, "title": "Sentence" },
         { "field": "linked_title", "sortable": true, "title": "Source" },
+        { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" }
 
         // { "field": "score", "sortable": true, "title": "Match score" },
         // { "field": "distance", "sortable": true, "title": "Min semantic distance" },
@@ -146,6 +147,24 @@ function displayQuery(d) {
                 let text = children[1].innerText;
                 let source = children[2].innerText;
                 navigator.clipboard.writeText(`"${text}" (${source})`);
+
+                // chrome.storage.sync.set({ savedQuotes: ["hello there"] }, function () {
+                //     console.log("Saved quote")
+                // })
+                chrome.storage.sync.get(['savedQuotes'], function (results) {
+                    var savedQuotes = results.savedQuotes;
+
+                    if (savedQuotes == undefined) {
+                        savedQuotes = [text];
+                    } else {
+                        savedQuotes.push(text);
+                    }
+
+                    chrome.storage.sync.set({ savedQuotes }, function () {
+                        console.log("Saved quote")
+                    });
+
+                });
             });
         }
 
