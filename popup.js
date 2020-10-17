@@ -4,9 +4,7 @@ let quoteServerUrl = "https://api.rhymezone.com/sentences";
 
 window.addEventListener("DOMContentLoaded", function () {
 
-    activateHelpButton()
-
-    handleGoogleDoc();
+    activateHelpButton();
 
     handleLocalStore();
 
@@ -47,45 +45,23 @@ function activateHelpButton() {
 function handleLocalStore() {
     if (localStorage["text"] != undefined) {
         // First we disable the findQuotes button as it isn't necessary 
-        $("#input-wrapper").addClass("clear");
-        $("#quoteTypeForm").addClass("clear");
-        queryQuotes(localStorage["text"]);
+        // $("#input-wrapper").addClass("clear");
+        // $("#quoteTypeForm").addClass("clear");
+        $("#userInput").val(localStorage["text"]);
+        searchPage();
         $("body").css("width", "");
         localStorage.clear();
     }
 }
 
-// if the page is a google docs page
-// we disable the input bar
-function handleGoogleDoc() {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { inputRequest: "pageType" }, function (response) {
-            if (response.isGoogleDoc) {
-                $("#input-wrapper").addClass("clear");
-                searchPage();
-            }
-        })
-    });
-}
 
 function searchPage() {
+    console.log("Using Extension Input")
+    let userInput = $("#userInput");
+    var userText = userInput.val();
+    userInput.select()
 
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, { inputRequest: "hello" }, function (response) {
-            if (response.isGoogleDoc) {
-                console.log("Google Docs Text Found");
-                var userText = response.googleDocsText
-            } else {
-                console.log("Using Extension Input")
-                let userInput = $("#userInput");
-                var userText = userInput.val();
-                userInput.select()
-            }
-            queryQuotes(userText);
-
-        })
-    });
-
+    queryQuotes(userText);
 }
 
 function queryQuotes(userText) {
@@ -113,12 +89,15 @@ function getQueryType() {
 
 
 function displayQuery(d) {
+    // First we must reset the table
+    $("#table-wrapper").html("<table id='displayTable'></table>");
+
     // Get the table from the popup page
     var table = $("#displayTable");
 
     let sentences = d.sentences;
     for (let i = 0; i < sentences.length; i++) {
-        let buttons = `<div><button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
+        let buttons = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
         sentences[i].buttons = buttons
     }
     console.log(sentences)
