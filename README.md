@@ -10,6 +10,5 @@ To start using Spruce, open up the popup from the extensions bar in the top righ
 ![tutorial1](./tutorials/animation.gif)
 
 ## Context Menu
----
 Writing something that you want quotes for? Curious what the world has to say about some topic? Skip the copy + paste and use the context menu! All you have to do is highlight your text, right click it, then "spruce up your selection!"
 ![tutorial2](./tutorials/context.gif)
