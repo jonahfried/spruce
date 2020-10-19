@@ -1,7 +1,7 @@
 body {
     /* width: 600px; */
     /* height: 500px; */
-    background-color: rgba(91, 151, 91, 0.75);
+    background-color:rgb(117, 170, 86);
     color: rgb(49, 37, 11);
     font-family: 'Oxygen';
 }
@@ -128,4 +128,8 @@ a {
     justify-content: space-evenly;
     margin-top: 10px;
 
+}
+
+#helpInfo img {
+    border: 1px solid rgb(32, 24, 7);
 }

@@ -40,65 +40,87 @@
                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" />
         </svg>
 
-        <!-- Header -->
-        <div class="findQuotesWrapper">
-            <img id="spruceLogo" class="unselectable" src="icons/icon-128.png" alt="spruce png" height="50"
-                width="50" />
-            <h1>Spruce</h1>
-            <p>Spruce up your writing!</p>
+        <!-- Help Info -->
+        <div id="helpInfo" class="clear findQuotesWrapper">
+            <h1>Help</h1>
+            <h3>Extension menu</h3>
+            <p>
+                To start using Spruce, open up the popup from the extensions bar in the top right of your chrome
+                browser. You may have to click on the little puzzle piece to find Spruce. Pin us to make finding
+                quotes easier!
+            </p>
+            <img src="./tutorials/animation.gif" alt="basic-animation" height="300">
+
+            <h3>Context menu</h3>
+            <p>
+                Writing something that you want quotes for? Curious what the world has to say about some topic? Skip the
+                copy + paste and use the context menu! All you have to do is highlight your text, right click it, then
+                "spruce up your selection!"
+            </p>
+            <img src="./tutorials/context.gif" alt="context-animation" height="300">
+        </div>
+
+        <div id="spruceMain">
+            <!-- Header -->
+            <div class="findQuotesWrapper">
+                <img id="spruceLogo" class="unselectable" src="icons/icon-128.png" alt="spruce png" height="50"
+                    width="50" />
+                <h1>Spruce</h1>
+                <p>Spruce up your writing!</p>
 
 
-            <!-- Input -->
-            <!-- Quote Type Form -->
-            <form id="quoteTypeForm">
-                <input type="radio" name="option" id="quoteType" value="quotes" checked>
-                <label for="quoteType">
-                    Quotes
-                </label>
-                <input type="radio" name="option" id="lyricsType" value="lyrics">
-                <label for="lyricsType">
-                    Lyrics and Poetry
-                </label>
-                <!-- <label style="padding-right: 15px;"><input type="radio" name="option" checked="true">Quotes</label>
+                <!-- Input -->
+                <!-- Quote Type Form -->
+                <form id="quoteTypeForm">
+                    <input type="radio" name="option" id="quoteType" value="quotes" checked>
+                    <label for="quoteType">
+                        Quotes
+                    </label>
+                    <input type="radio" name="option" id="lyricsType" value="lyrics">
+                    <label for="lyricsType">
+                        Lyrics and Poetry
+                    </label>
+                    <!-- <label style="padding-right: 15px;"><input type="radio" name="option" checked="true">Quotes</label>
                 <label><input type="radio" name="option">Lyrics</label> -->
-            </form>
+                </form>
 
 
-            <div class="input-group" id="input-wrapper">
-                <textarea id="userInput" class="form-control" autofocus="autofocus"
-                    aria-label="With textarea"></textarea>
-                <div class="input-group-prepend">
-                    <button class="input-group-text" id="findQuotes">Find Quotes!</button>
+                <div class="input-group" id="input-wrapper">
+                    <textarea id="userInput" class="form-control" autofocus="autofocus"
+                        aria-label="With textarea"></textarea>
+                    <div class="input-group-prepend">
+                        <button class="input-group-text" id="findQuotes">Find Quotes!</button>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="sort-buttons-wrapper">
-            <button id="sortSuitability" class="clear">Sort <span>ascending</span> suitability</button>
-            <button id="sortComplexity" class="clear">Sort <span>ascending</span> complexity</button>
+            <div class="sort-buttons-wrapper">
+                <button id="sortSuitability" class="clear">Sort <span>ascending</span> suitability</button>
+                <button id="sortComplexity" class="clear">Sort <span>ascending</span> complexity</button>
 
-        </div>
-        <!-- display results -->
-        <div class=" display">
-            <div id="loading" class="clear spinner-border d-flex justify-content-between" role="status"
-                style="display: none;">
-                <span class="sr-only">Loading...</span>
             </div>
-            <!-- <h3 id="loading" class="clear">Loading...</h3> -->
-            <div id="table-wrapper">
-                <table id="displayTable">
+            <!-- display results -->
+            <div class=" display">
+                <div id="loading" class="clear spinner-border d-flex justify-content-between" role="status"
+                    style="display: none;">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <!-- <h3 id="loading" class="clear">Loading...</h3> -->
+                <div id="table-wrapper">
+                    <table id="displayTable">
 
-                </table>
-            </div>
+                    </table>
+                </div>
 
-            <!-- Sorry no results text -->
-            <div id="noResults" class="clear">
-                Sorry, no results were found. Maybe try a longer selection.
+                <!-- Sorry no results text -->
+                <div id="noResults" class="clear">
+                    Sorry, no results were found. Maybe try a longer selection.
+                </div>
             </div>
-        </div>
-        <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script> -->
+        </div>
     </div>
 
 </body>
