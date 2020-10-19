@@ -17,7 +17,9 @@ window.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             searchPage(this.value);
         }
-    })
+    });
+
+    activateSortButtons();
 });
 
 function activateHelpButton() {
@@ -39,6 +41,27 @@ function activateHelpButton() {
         $("#github-link").on("click", function () {
             chrome.tabs.create({ url: $(this).attr("href") })
         })
+    });
+}
+
+function activateSortButtons() {
+    function sort(theader, button) {
+        theader.click();
+        if (theader.hasClass("asc")) {
+            console.log("desc")
+            $(button).find("span").text("descending");
+        } else if (theader.hasClass("desc")) {
+            console.log("asc")
+            $(button).find("span").text("ascending");
+        }
+    }
+    $("#sortSuitability").on("click", () => {
+        var theader = $("#displayTable thead tr").find("th").eq(4).find("div").eq(0);
+        sort(theader, "#sortSuitability")
+    });
+    $("#sortComplexity").on("click", () => {
+        var theader = $("#displayTable thead tr").find("th").eq(5).find("div").eq(0);
+        sort(theader, "#sortComplexity")
     });
 }
 
@@ -72,9 +95,11 @@ function queryQuotes(userText) {
     var loading = $("#loading");
     loading.removeClass("clear");
 
+    hideSortButtons();
+
     $("#noResults").addClass("clear")
 
-    var input_data = { "query": userText, "doc_mode": true, "selector": getQueryType(), "max_results": 20, "wke": false };
+    var input_data = { "query": userText, "doc_mode": true, "selector": getQueryType(), "max_results": 50, "wke": false };
     $.ajax({
         method: "POST",
         url: quoteServerUrl,
@@ -95,11 +120,7 @@ function displayQuery(d) {
     // Get the table from the popup page
     var table = $("#displayTable");
 
-    let sentences = d.sentences;
-    for (let i = 0; i < sentences.length; i++) {
-        let buttons = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
-        sentences[i].buttons = buttons
-    }
+    let sentences = preprocessQuotes(d.sentences);
     console.log(sentences)
     // console.log(sentences);
 
@@ -107,7 +128,9 @@ function displayQuery(d) {
         { "field": "buttons", "sortable": false, "title": "Copy" },
         { "field": "sentence", "sortable": true, "title": "Sentence" },
         { "field": "linked_title", "sortable": true, "title": "Source" },
-        { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" }
+        { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" },
+        { "field": "score", "sortable": true, "title": "score", "class": "clear" },
+        { "field": "complexity", "sortable": true, "title": "complexity", "class": "clear" },
 
         // { "field": "score", "sortable": true, "title": "Match score" },
         // { "field": "distance", "sortable": true, "title": "Min semantic distance" },
@@ -158,6 +181,7 @@ function displayQuery(d) {
         $("[data-field='sentence']").css("width", "66%");
 
         table.removeClass("clear");
+        displaySortButtons();
     } else {
         $("#noResults").removeClass("clear")
     }
@@ -168,4 +192,28 @@ function displayQuery(d) {
     // Get the loading message to hide it
     $("#loading").addClass("clear");
 
+
+}
+
+function preprocessQuotes(sentences) {
+    for (let i = 0; i < sentences.length; i++) {
+        let buttons = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
+        sentences[i].buttons = buttons;
+        sentences[i].complexity = sentences[i].sentence.length;
+    }
+    return sentences
+}
+
+function displaySortButtons() {
+    // Get the sort button to reveal it
+    $("#sortSuitability").removeClass("clear");
+    $("#sortComplexity").removeClass("clear");
+    return
+}
+
+function hideSortButtons() {
+    // Get the sort button to reveal it
+    $("#sortSuitability").addClass("clear");
+    $("#sortComplexity").addClass("clear");
+    return
 }

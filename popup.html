@@ -65,16 +65,21 @@
 
 
             <div class="input-group" id="input-wrapper">
-                <textarea id="userInput" class="form-control" aria-label="With textarea"></textarea>
+                <textarea id="userInput" class="form-control" autofocus="autofocus"
+                    aria-label="With textarea"></textarea>
                 <div class="input-group-prepend">
                     <button class="input-group-text" id="findQuotes">Find Quotes!</button>
                 </div>
             </div>
         </div>
 
+        <div class="sort-buttons-wrapper">
+            <button id="sortSuitability" class="clear">Sort <span>ascending</span> suitability</button>
+            <button id="sortComplexity" class="clear">Sort <span>ascending</span> complexity</button>
 
+        </div>
         <!-- display results -->
-        <div class="display">
+        <div class=" display">
             <div id="loading" class="clear spinner-border d-flex justify-content-between" role="status"
                 style="display: none;">
                 <span class="sr-only">Loading...</span>

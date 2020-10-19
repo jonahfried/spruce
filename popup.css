@@ -121,3 +121,11 @@ a {
     user-select: none;
     user-drag: none;
 }
+
+.sort-buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 10px;
+
+}
