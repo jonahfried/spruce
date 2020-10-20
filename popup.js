@@ -146,6 +146,7 @@ function displayQuery(d) {
                 let children = $(`[data-index="${i}"]`).children();
                 let text = children[1].innerText;
                 let source = children[2].innerText;
+                let id = children[3].innerText;
                 navigator.clipboard.writeText(`"${text}" (${source})`);
 
                 // chrome.storage.sync.set({ savedQuotes: ["hello there"] }, function () {
@@ -154,17 +155,22 @@ function displayQuery(d) {
                 chrome.storage.sync.get(['savedQuotes'], function (results) {
                     var savedQuotes = results.savedQuotes;
 
+                    // If savedQuotes is yet undefined, we must 
+                    // initialize it as an empty object
+
                     if (savedQuotes == undefined) {
-                        savedQuotes = [text];
-                    } else {
-                        savedQuotes.push(text);
+                        savedQuotes = {};
                     }
 
-                    chrome.storage.sync.set({ savedQuotes }, function () {
-                        console.log("Saved quote")
-                    });
+                    savedQuotes[id] = { text, source };
 
+                    chrome.storage.sync.set({ savedQuotes: savedQuotes }, function () {
+                        console.log("Saved quote");
+                        console.log(savedQuotes)
+                    })
                 });
+
+
             });
         }
 
