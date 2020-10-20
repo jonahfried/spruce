@@ -3,6 +3,11 @@ const MAX_QUOTE_LEN = 300;
 let quoteServerUrl = "https://api.rhymezone.com/sentences";
 
 window.addEventListener("DOMContentLoaded", function () {
+    if (window.chrome && chrome.runtime && chrome.runtime.id) {
+        $("body").css("width", "600px");
+    } else {
+        $(".container-fluid").css("width", "800px");
+    }
 
     activateHelpButton();
 
