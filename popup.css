@@ -133,3 +133,12 @@ a {
 #helpInfo img {
     border: 1px solid rgb(32, 24, 7);
 }
+
+form {
+    display: flex;
+    justify-content: space-around;
+}
+
+#sortForm {
+    margin-top: 10px;
+}

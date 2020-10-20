@@ -3,6 +3,7 @@
 
 <head>
     <title>Spruce</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
 
     <!-- Bootstrap necesarry scripts  -->
     <script src="jquery-3.5.1.min.js"></script>
@@ -72,33 +73,59 @@
                 <!-- Input -->
                 <!-- Quote Type Form -->
                 <form id="quoteTypeForm">
-                    <input type="radio" name="option" id="quoteType" value="quotes" checked>
-                    <label for="quoteType">
-                        Quotes
-                    </label>
-                    <input type="radio" name="option" id="lyricsType" value="lyrics">
-                    <label for="lyricsType">
-                        Lyrics and Poetry
-                    </label>
+                    <div>
+                        <input type="radio" name="option" id="quoteType" value="quotes" checked>
+                        <label for="quoteType">
+                            Quotes
+                        </label>
+
+                    </div>
+                    <div>
+                        <input type="radio" name="option" id="lyricsType" value="lyrics">
+                        <label for="lyricsType">
+                            Lyrics and Poetry
+                        </label>
+
+                    </div>
                     <!-- <label style="padding-right: 15px;"><input type="radio" name="option" checked="true">Quotes</label>
                 <label><input type="radio" name="option">Lyrics</label> -->
                 </form>
 
 
                 <div class="input-group" id="input-wrapper">
-                    <textarea id="userInput" class="form-control" autofocus="autofocus"
-                        aria-label="With textarea"></textarea>
+                    <textarea id="userInput" class="form-control" autofocus="autofocus" aria-label="With textarea"
+                        placeholder="Paste or type a sentence or paragraph here!"></textarea>
                     <div class="input-group-prepend">
                         <button class="input-group-text" id="findQuotes">Find Quotes!</button>
                     </div>
                 </div>
             </div>
 
-            <div class="sort-buttons-wrapper">
-                <button id="sortSuitability" class="clear">Sort <span>ascending</span> suitability</button>
-                <button id="sortComplexity" class="clear">Sort <span>ascending</span> complexity</button>
+            <form id="sortForm" class="clear">
+                <div>
+                    <input type="radio" name="option" id="relevance" value="relevance" checked>
+                    <label for="relevance">
+                        Relevance
+                    </label>
 
-            </div>
+                </div>
+                <div>
+                    <input type="radio" name="option" id="complexity" value="complexity">
+                    <label for="complexity">
+                        Complexity
+                    </label>
+
+                </div>
+                <div>
+                    <input type="radio" name="option" id="simplicity" value="simplicity">
+                    <label for="simplicity">
+                        Simplicity
+                    </label>
+
+                </div>
+            </form>
+
+
             <!-- display results -->
             <div class=" display">
                 <div id="loading" class="clear spinner-border d-flex justify-content-between" role="status"

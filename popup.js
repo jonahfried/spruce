@@ -39,23 +39,31 @@ function activateHelpButton() {
 }
 
 function activateSortButtons() {
-    function sort(theader, button) {
-        theader.click();
-        if (theader.hasClass("asc")) {
-            console.log("desc")
-            $(button).find("span").text("descending");
-        } else if (theader.hasClass("desc")) {
-            console.log("asc")
-            $(button).find("span").text("ascending");
+
+    $("#sortForm").on("change", (e) => {
+        var sentence = $("#displayTable thead tr").find("th").eq(1).find("div").eq(0);
+
+        var relevance = $("#displayTable thead tr").find("th").eq(4).find("div").eq(0);
+
+        var complexity = $("#displayTable thead tr").find("th").eq(5).find("div").eq(0);
+        console.log("hello");
+
+        var sortBy = e.target.value;
+
+        sentence.click();
+        switch (sortBy) {
+            case "relevance":
+                relevance.click();
+                relevance.click();
+                break;
+            case "complexity":
+                complexity.click();
+                complexity.click();
+                break;
+            case "simplicity":
+                complexity.click();
+                break;
         }
-    }
-    $("#sortSuitability").on("click", () => {
-        var theader = $("#displayTable thead tr").find("th").eq(4).find("div").eq(0);
-        sort(theader, "#sortSuitability")
-    });
-    $("#sortComplexity").on("click", () => {
-        var theader = $("#displayTable thead tr").find("th").eq(5).find("div").eq(0);
-        sort(theader, "#sortComplexity")
     });
 }
 
@@ -200,14 +208,12 @@ function preprocessQuotes(sentences) {
 
 function displaySortButtons() {
     // Get the sort button to reveal it
-    $("#sortSuitability").removeClass("clear");
-    $("#sortComplexity").removeClass("clear");
+    $("#sortForm").removeClass("clear");
     return
 }
 
 function hideSortButtons() {
     // Get the sort button to reveal it
-    $("#sortSuitability").addClass("clear");
-    $("#sortComplexity").addClass("clear");
+    $("#sortForm").addClass("clear");
     return
 }
