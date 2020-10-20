@@ -3,11 +3,7 @@ const MAX_QUOTE_LEN = 300;
 let quoteServerUrl = "https://api.rhymezone.com/sentences";
 
 window.addEventListener("DOMContentLoaded", function () {
-    if (window.chrome && chrome.runtime && chrome.runtime.id) {
-        $("body").css("width", "600px");
-    } else {
-        $(".container-fluid").css("width", "800px");
-    }
+    sizeIfExtension();
 
     activateHelpButton();
 
@@ -26,6 +22,14 @@ window.addEventListener("DOMContentLoaded", function () {
 
     activateSortButtons();
 });
+
+function sizeIfExtension() {
+    if (window.chrome && chrome.runtime && chrome.runtime.id) {
+        $("body").css("width", "600px");
+    } else {
+        $(".container-fluid").css("width", "800px");
+    }
+}
 
 function activateHelpButton() {
     $("#help").on("click", function () {
@@ -96,6 +100,9 @@ function queryQuotes(userText) {
 
     var loading = $("#loading");
     loading.removeClass("clear");
+
+    // Make the relevance boxed check on load
+    $("#relevance").prop("checked", true);
 
     hideSortButtons();
 
