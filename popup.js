@@ -50,7 +50,6 @@ function activateSortButtons() {
         var relevance = $("#displayTable thead tr").find("th").eq(4).find("div").eq(0);
 
         var complexity = $("#displayTable thead tr").find("th").eq(5).find("div").eq(0);
-        console.log("hello");
 
         var sortBy = e.target.value;
 
@@ -135,9 +134,9 @@ function displayQuery(d) {
 
     var columns = [
         { "field": "buttons", "sortable": false, "title": "Copy" },
-        { "field": "sentence", "sortable": true, "title": "Sentence" },
-        { "field": "linked_title", "sortable": true, "title": "Source" },
-        { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" },
+        { "field": "sentence", "sortable": false, "title": "Sentence" },
+        { "field": "linked_title", "sortable": false, "title": "Source" },
+        { "field": "faiss_idx", "sortable": false, "title": "ID", "class": "clear" },
         { "field": "score", "sortable": true, "title": "score", "class": "clear" },
         { "field": "complexity", "sortable": true, "title": "complexity", "class": "clear" },
 
@@ -153,33 +152,7 @@ function displayQuery(d) {
             exportTypes: ['excel', 'csv', 'txt'],
         });
 
-        for (let i = 0; i < sentences.length; i++) {
-            let id = "#button" + i;
-            $(id).on("click", function () {
-                let children = $(`[data-index="${i}"]`).children();
-                let text = children[1].innerText;
-                let source = children[2].innerText;
-                navigator.clipboard.writeText(`"${text}" (${source})`);
-
-                // chrome.storage.sync.set({ savedQuotes: ["hello there"] }, function () {
-                //     console.log("Saved quote")
-                // })
-                chrome.storage.sync.get(['savedQuotes'], function (results) {
-                    var savedQuotes = results.savedQuotes;
-
-                    if (savedQuotes == undefined) {
-                        savedQuotes = [text];
-                    } else {
-                        savedQuotes.push(text);
-                    }
-
-                    chrome.storage.sync.set({ savedQuotes }, function () {
-                        console.log("Saved quote")
-                    });
-
-                });
-            });
-        }
+        loadButtons(sentences.length);
 
         $("a").on("click", function () {
             chrome.tabs.create({ url: $(this).attr("href") });
@@ -190,7 +163,10 @@ function displayQuery(d) {
         $("[data-field='sentence']").css("width", "66%");
 
         table.removeClass("clear");
+
         displaySortButtons();
+
+        $("#sortForm").on("change", () => loadButtons(sentences.length));
     } else {
         $("#noResults").removeClass("clear")
     }
@@ -201,6 +177,39 @@ function displayQuery(d) {
     // Get the loading message to hide it
     $("#loading").addClass("clear");
 
+
+}
+
+function loadButtons(sentencesLen) {
+    for (let i = 0; i < sentencesLen; i++) {
+        let button = $("[data-index='" + i + "']").find("td").eq(0).find("button");
+        console.log(button)
+        button.on("click", function () {
+            let children = $(`[data-index="${i}"]`).children();
+            let text = children[1].innerText;
+            let source = children[2].innerText;
+            navigator.clipboard.writeText(`"${text}" (${source})`);
+
+            // chrome.storage.sync.set({ savedQuotes: ["hello there"] }, function () {
+            //     console.log("Saved quote")
+            // })
+            chrome.storage.sync.get(['savedQuotes'], function (results) {
+                var savedQuotes = results.savedQuotes;
+
+                if (savedQuotes == undefined) {
+                    savedQuotes = [text];
+                } else {
+                    savedQuotes.push(text);
+                }
+
+                chrome.storage.sync.set({ savedQuotes }, function () {
+                    console.log("Saved quote");
+                });
+
+            });
+        });
+    }
+    $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
 
 }
 
