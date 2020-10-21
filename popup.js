@@ -45,7 +45,8 @@ function activateHelpButton() {
 function activateSortButtons() {
 
     $("#sortForm").on("change", (e) => {
-        var sentence = $("#displayTable thead tr").find("th").eq(1).find("div").eq(0);
+
+        var id = $("#displayTable thead tr").find("th").eq(3).find("div").eq(0);
 
         var relevance = $("#displayTable thead tr").find("th").eq(4).find("div").eq(0);
 
@@ -53,7 +54,7 @@ function activateSortButtons() {
 
         var sortBy = e.target.value;
 
-        sentence.click();
+        id.click();
         switch (sortBy) {
             case "relevance":
                 relevance.click();
@@ -101,7 +102,7 @@ function queryQuotes(userText) {
     loading.removeClass("clear");
 
     // Make the relevance boxed check on load
-    $("#relevance").prop("checked", true);
+    $("#relevance").click();
 
     hideSortButtons();
 
@@ -136,7 +137,7 @@ function displayQuery(d) {
         { "field": "buttons", "sortable": false, "title": "Copy" },
         { "field": "sentence", "sortable": false, "title": "Sentence" },
         { "field": "linked_title", "sortable": false, "title": "Source" },
-        { "field": "faiss_idx", "sortable": false, "title": "ID", "class": "clear" },
+        { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" },
         { "field": "score", "sortable": true, "title": "score", "class": "clear" },
         { "field": "complexity", "sortable": true, "title": "complexity", "class": "clear" },
 
@@ -154,11 +155,7 @@ function displayQuery(d) {
 
         loadButtons(sentences.length);
 
-        $("a").on("click", function () {
-            chrome.tabs.create({ url: $(this).attr("href") });
-        });
-
-        $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
+        loadJS();
 
         $("[data-field='sentence']").css("width", "66%");
 
@@ -166,7 +163,7 @@ function displayQuery(d) {
 
         displaySortButtons();
 
-        $("#sortForm").on("change", () => loadButtons(sentences.length));
+        $("#sortForm").on("change", () => { loadButtons(sentences.length); loadJS() });
     } else {
         $("#noResults").removeClass("clear")
     }
@@ -180,10 +177,17 @@ function displayQuery(d) {
 
 }
 
+function loadJS() {
+    $("a").on("click", function () {
+        chrome.tabs.create({ url: $(this).attr("href") });
+    });
+
+    $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
+}
+
 function loadButtons(sentencesLen) {
     for (let i = 0; i < sentencesLen; i++) {
         let button = $("[data-index='" + i + "']").find("td").eq(0).find("button");
-        console.log(button)
         button.on("click", function () {
             let children = $(`[data-index="${i}"]`).children();
             let text = children[1].innerText;
@@ -209,8 +213,6 @@ function loadButtons(sentencesLen) {
             });
         });
     }
-    $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
-
 }
 
 function preprocessQuotes(sentences) {

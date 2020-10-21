@@ -30,7 +30,7 @@ th, td {
 }
 
 table {
-    margin-top: 10px;
+    margin-top: 2px;
     border-collapse: collapse;
     color: rgb(32, 24, 7);
 }
@@ -39,7 +39,7 @@ tr {
     border: 1px solid rgb(44, 29, 0);
 }
 
-tr:nth-child(odd) {
+tbody tr:nth-child(odd) {
     background-color: rgba(91, 151, 91, 0.5);
 }
 
@@ -48,8 +48,8 @@ tr button {
     visibility: hidden;
 }
 
-tr:hover {
-    background-color: rgb(48, 131, 0);
+tbody tr:hover {
+    background-color: rgb(48, 131, 0) !important;
 }
 
 tr:hover button {
@@ -141,5 +141,13 @@ form {
 }
 
 #sortForm {
+    display: flex;
+    width: 66%;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 10px;
+}
+
+#sortForm label {
+    border: 1px solid rgb(32, 24, 7);
 }

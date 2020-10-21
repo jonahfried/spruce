@@ -108,29 +108,20 @@
                 </div>
             </div>
 
-            <form id="sortForm" class="clear">
-                <div>
-                    <input type="radio" name="option" id="relevance" value="relevance" checked>
-                    <label for="relevance">
-                        Most Relevant
-                    </label>
-
-                </div>
-                <div>
-                    <input type="radio" name="option" id="complexity" value="complexity">
-                    <label for="complexity">
-                        Most Complex
-                    </label>
-
-                </div>
-                <div>
-                    <input type="radio" name="option" id="simplicity" value="simplicity">
-                    <label for="simplicity">
-                        Simplest
-                    </label>
-
-                </div>
-            </form>
+            <div id="sortForm" class="clear btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="relevance" value="relevance" autocomplete="off" checked>
+                    Most Relevant
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="complexity" value="complexity" autocomplete="off">
+                    Most Complex
+                </label>
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="simplicity" value="simplicity" autocomplete="off">
+                    Simplest
+                </label>
+            </div>
 
 
             <!-- display results -->
