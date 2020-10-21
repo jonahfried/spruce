@@ -90,7 +90,13 @@ function searchPage() {
     var userText = userInput.val();
     userInput.select()
 
-    queryQuotes(userText);
+    if (userText.trim() != "") {
+        queryQuotes(userText);
+    } else {
+        $("#displayTable").addClass("clear");
+        $("#sortForm").addClass("clear");
+        $("#noInput").removeClass("clear");
+    }
 }
 
 function queryQuotes(userText) {
@@ -106,7 +112,8 @@ function queryQuotes(userText) {
 
     hideSortButtons();
 
-    $("#noResults").addClass("clear")
+    $("#noResults").addClass("clear");
+    $("#noInput").addClass("clear");
 
     var input_data = { "query": userText, "doc_mode": true, "selector": getQueryType(), "max_results": 50, "wke": false };
     $.ajax({

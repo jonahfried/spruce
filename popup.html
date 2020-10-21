@@ -35,6 +35,8 @@
 
     <!-- Getting font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oxygen">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="popup.css">
 </head>
 
@@ -51,14 +53,15 @@
         <!-- Help Info -->
         <div id="helpInfo" class="clear findQuotesWrapper">
             <h1>Help</h1>
+            <hr>
             <h3>Extension menu</h3>
             <p>
                 To start using Spruce, open up the popup from the extensions bar in the top right of your chrome
                 browser. You may have to click on the little puzzle piece to find Spruce. Pin us to make finding
-                quotes easier!
+                quotes easier! Then, just start writing. When you're done, click "Find Quotes!" and we'll do the rest.
             </p>
             <img src="./tutorials/extensionMenu.gif" alt="basic-animation" height="300">
-
+            <hr>
             <h3>Context menu</h3>
             <p>
                 Writing something that you want quotes for? Curious what the world has to say about some topic? Skip the
@@ -140,6 +143,9 @@
                 <!-- Sorry no results text -->
                 <div id="noResults" class="clear">
                     Sorry, no results were found. Maybe try a longer selection.
+                </div>
+                <div id="noInput" class="clear">
+                    Oops! It looks like you didn't write anything. Try writing a sentence in the box above!
                 </div>
             </div>
             <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
