@@ -19,7 +19,9 @@ window.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             searchPage(this.value);
         }
-    })
+    });
+
+    $("#showSaved").on("click", showSavedQuotes)
 });
 
 function activateHelpButton() {
@@ -193,4 +195,25 @@ function displayQuery(d) {
     // Get the loading message to hide it
     $("#loading").addClass("clear");
 
+}
+
+function showSavedQuotes() {
+    console.log("Showing Saved Quotes");
+    var table = $("#savedQuotesTable");
+    var columns = [
+        { "field": "text", "sortable": false, "title": "Sentence" },
+        { "field": "source", "sortable": false, "title": "Source" },
+    ]
+    chrome.storage.sync.get(["savedQuotes"], (r) => {
+        var data = [];
+        for (const [id, sentence] of Object.entries(r.savedQuotes)) {
+            sentence.faiss_idx = id;
+            data.push(sentence)
+        }
+        table.bootstrapTable({
+            data,
+            columns
+        })
+    });
+    table.removeClass('clear')
 }
