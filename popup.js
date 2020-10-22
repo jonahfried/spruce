@@ -21,6 +21,10 @@ window.addEventListener("DOMContentLoaded", function () {
     });
 
     activateSortButtons();
+
+    $("#showSaved").on("click", showSavedQuotes);
+
+    $("#hideSaved").on("click", hideSavedQuotes);
 });
 
 function sizeIfExtension() {
@@ -241,4 +245,31 @@ function hideSortButtons() {
     // Get the sort button to reveal it
     $("#sortForm").addClass("clear");
     return
+}
+
+function showSavedQuotes() {
+    console.log("Showing Saved Quotes");
+    var table = $("#savedQuotesTable");
+    var columns = [
+        { "field": "text", "sortable": false, "title": "Sentence" },
+        { "field": "source", "sortable": false, "title": "Source" },
+    ]
+    chrome.storage.sync.get(["savedQuotes"], (r) => {
+        var data = [];
+        for (const [id, sentence] of Object.entries(r.savedQuotes)) {
+            sentence.faiss_idx = id;
+            data.push(sentence)
+        }
+        table.bootstrapTable({
+            data,
+            columns
+        })
+    });
+    table.removeClass('clear');
+    $("#hideSaved").removeClass('clear');
+}
+
+function hideSavedQuotes() {
+    $("#savedQuotesTable").addClass('clear');
+    $("#hideSaved").addClass("clear");
 }
