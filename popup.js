@@ -21,7 +21,9 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    $("#showSaved").on("click", showSavedQuotes)
+    $("#showSaved").on("click", showSavedQuotes);
+
+    $("#hideSaved").on("click", hideSavedQuotes);
 });
 
 function activateHelpButton() {
@@ -215,5 +217,11 @@ function showSavedQuotes() {
             columns
         })
     });
-    table.removeClass('clear')
+    table.removeClass('clear');
+    $("#hideSaved").removeClass('clear');
+}
+
+function hideSavedQuotes() {
+    $("#savedQuotesTable").addClass('clear');
+    $("#hideSaved").addClass("clear");
 }
