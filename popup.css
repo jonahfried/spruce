@@ -179,3 +179,8 @@ form {
     color: rgb(121, 92, 38);
     text-decoration: underline;
 }
+
+#sticky-footer small {
+    display: flex;
+    justify-content: space-around;
+}
