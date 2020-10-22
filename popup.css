@@ -1,7 +1,10 @@
 body {
     /* width: 600px; */
     /* height: 500px; */
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
     background-color:rgb(117, 170, 86);
     color: rgb(49, 37, 11);
     font-family: "Oxygen";
@@ -19,7 +22,7 @@ h1 {
     text-align: center;
 }
 
-hr {
+#helpInfo hr {
     background-color: rgb(49, 37, 11);
     margin-bottom: 15px;
     /* padding-bottom: 5px; */
@@ -82,8 +85,9 @@ tr:hover button:active {
     display: none !important;
 }
 
-a {
+table a {
     color: rgb(26, 18, 3);
+    text-decoration: underline;
 }
 
 #loading {
@@ -163,4 +167,15 @@ form {
 
 #sortForm label {
     border: 1px solid rgb(32, 24, 7);
+}
+
+#sticky-footer {
+    /* background-color: rgb(25, 59, 25); */
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+#sticky-footer a {
+    color: rgb(121, 92, 38);
+    text-decoration: underline;
 }
