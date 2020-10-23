@@ -64,6 +64,8 @@ tbody tr:hover {
 }
 
 tr:hover button {
+    margin-bottom: 5px;
+    margin-top: 5px;
     visibility: visible;
     /* font-size: large; */
     /* padding: 5px;

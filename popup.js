@@ -198,7 +198,7 @@ function loadJS() {
 
 function loadButtons(sentencesLen) {
     for (let i = 0; i < sentencesLen; i++) {
-        let button = $("[data-index='" + i + "']").find("td").eq(0).find("button");
+        let button = $("[data-index='" + i + "']").find("td").eq(0).find("button").eq(0);
         button.on("click", function () {
             let children = $(`[data-index="${i}"]`).children();
             let text = children[1].innerText;
@@ -225,6 +225,21 @@ function loadButtons(sentencesLen) {
 
             });
         });
+    }
+}
+
+function loadDeleteButton(sentencesLen) {
+    for (let i = 0; i < sentencesLen; i++) {
+        let button = $("[data-index='" + i + "']").find("td").eq(0).find("button").eq(1);
+        button.on("click", function () {
+            let children = $(`[data-index="${i}"]`).children();
+            let id = children[3].innerText;
+            chrome.storage.sync.get(["savedQuotes"], (r) => {
+                delete r.savedQuotes[id];
+                chrome.storage.sync.set({ savedQuotes: r.savedQuotes });
+            });
+            $(`[data-index="${i}"]`).eq(0).css("display", "none");
+        })
     }
 }
 
@@ -272,7 +287,7 @@ function showSavedQuotes() {
         }
 
         for (let i = 0; i < data.length; i++) {
-            data[i].buttons = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
+            data[i].buttons = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button> <button id=${"delete" + i}>X</button>`;
         }
 
         table.bootstrapTable({
@@ -281,12 +296,14 @@ function showSavedQuotes() {
         });
 
         loadButtons(data.length);
+        loadDeleteButton(data.length);
+        loadJS();
     });
     table.removeClass('clear');
     $("#hideSaved").removeClass('clear');
     $("#showSaved").addClass('clear');
 
-    // $("[data-field='text']").css("width", "66%");
+    $("[data-field='text']").css("width", "66%");
 }
 
 function hideSavedQuotes() {
