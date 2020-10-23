@@ -18,6 +18,7 @@ body {
     padding: 10px;
     background-color: rgb(117, 170, 86);
     height: 100%;
+    border-radius: 5px;
 }
 
 h1 {
@@ -112,8 +113,8 @@ table a {
 
 .help {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 20px;
+    top: 25px;
 }
 
 .help:focus {
