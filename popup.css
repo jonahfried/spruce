@@ -10,6 +10,14 @@ body {
     font-family: "Oxygen";
     line-height: 1.4;
     font-size: 16px;
+    background-image: url("./more-leaves.png");
+    background-repeat: repeat;
+}
+
+.container-fluid {
+    padding: 10px;
+    background-color: rgb(117, 170, 86);
+    height: 100%;
 }
 
 h1 {
@@ -189,6 +197,7 @@ form {
 
 .saved-buttons-wrapper {
     margin-bottom: 5px;
+    position: absolute;
 }
 
 .saved-buttons-wrapper button {

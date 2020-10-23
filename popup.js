@@ -32,6 +32,7 @@ function sizeIfExtension() {
         $("body").css("width", "600px");
     } else {
         $(".container-fluid").css("width", "800px");
+        $(".saved-buttons-wrapper").addClass("clear");
     }
 }
 
