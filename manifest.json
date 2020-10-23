@@ -5,8 +5,6 @@
     "version": "0.1",
     "permissions": [
         "storage",
-        "activeTab",
-        "declarativeContent",
         "webRequest",
         "contextMenus"
     ],
@@ -22,19 +20,7 @@
     "content_scripts": [
         {
             "matches": [
-                "https://docs.google.com/document/*"
-            ],
-            "js": [
-                "googleDocsUtil.js",
-                "handleGoogleDoc.js"
-            ]
-        },
-        {
-            "matches": [
                 "<all_urls>"
-            ],
-            "exclude_matches": [
-                "https://docs.google.com/document/*"
             ],
             "js": [
                 "handleGeneric.js"

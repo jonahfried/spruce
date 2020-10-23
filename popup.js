@@ -44,6 +44,7 @@ function activateHelpButton() {
         //     $("#spruceMain").toggleClass("clear");
         // });
         $("#spruceMain").toggleClass("clear");
+        $(".saved-buttons-wrapper").toggleClass("clear");
     });
 }
 
