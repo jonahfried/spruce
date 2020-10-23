@@ -79,15 +79,6 @@
             </footer>
         </div>
 
-        <div>
-
-            <button id="showSaved">Saved Quotes</button>
-            <button id="hideSaved" class="clear">Hide Quotes</button>
-
-            <table id="savedQuotesTable" class="clear"></table>
-
-        </div>
-
 
         <div id="spruceMain">
             <!-- Header -->
@@ -96,6 +87,19 @@
                     width="50" />
                 <h1>Spruce</h1>
                 <p>Spruce up your writing!</p>
+
+                <div>
+                    <div class="saved-buttons-wrapper">
+                        <button id="showSaved">Saved Quotes</button>
+                        <button id="hideSaved" class="clear">Hide Quotes</button>
+                    </div>
+
+                    <div id="savedQuotesTableWrapper">
+                        <table id="savedQuotesTable" class="clear"></table>
+                    </div>
+
+                </div>
+
 
 
                 <!-- Input -->
@@ -146,7 +150,7 @@
 
 
             <!-- display results -->
-            <div class=" display">
+            <div class="display" id="display-wrapper">
                 <div id="loading" class="clear spinner-border d-flex justify-content-between" role="status"
                     style="display: none;">
                     <span class="sr-only">Loading...</span>

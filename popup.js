@@ -202,8 +202,11 @@ function loadButtons(sentencesLen) {
         button.on("click", function () {
             let children = $(`[data-index="${i}"]`).children();
             let text = children[1].innerText;
-            let source = children[2].innerText;
-            navigator.clipboard.writeText(`"${text}" (${source})`);
+            let source = children[2].children[0].outerHTML;
+            let sourceText = children[2].innerText;
+            let id = children[3].innerText;
+
+            navigator.clipboard.writeText(`"${text}" (${sourceText})`);
 
             // chrome.storage.sync.set({ savedQuotes: ["hello there"] }, function () {
             //     console.log("Saved quote")
@@ -212,10 +215,9 @@ function loadButtons(sentencesLen) {
                 var savedQuotes = results.savedQuotes;
 
                 if (savedQuotes == undefined) {
-                    savedQuotes = [text];
-                } else {
-                    savedQuotes.push(text);
+                    savedQuotes = {};
                 }
+                savedQuotes[id] = { text, source };
 
                 chrome.storage.sync.set({ savedQuotes }, function () {
                     console.log("Saved quote");
@@ -249,10 +251,18 @@ function hideSortButtons() {
 
 function showSavedQuotes() {
     console.log("Showing Saved Quotes");
+    $("#input-wrapper").hide();
+    $("#quoteTypeForm").hide();
+    $("#sortForm").hide();
+    $("#display-wrapper").hide();
+
+
     var table = $("#savedQuotesTable");
     var columns = [
+        { "field": "buttons", "sortable": false, "title": "Copy" },
         { "field": "text", "sortable": false, "title": "Sentence" },
         { "field": "source", "sortable": false, "title": "Source" },
+        { "field": "faiss_idx", "sortable": false, "title": "ID", "class": "clear" },
     ]
     chrome.storage.sync.get(["savedQuotes"], (r) => {
         var data = [];
@@ -260,16 +270,39 @@ function showSavedQuotes() {
             sentence.faiss_idx = id;
             data.push(sentence)
         }
+
+        for (let i = 0; i < data.length; i++) {
+            data[i].buttons = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
+        }
+
         table.bootstrapTable({
             data,
             columns
-        })
+        });
+
+        loadButtons(data.length);
     });
     table.removeClass('clear');
     $("#hideSaved").removeClass('clear');
+    $("#showSaved").addClass('clear');
+
+    // $("[data-field='text']").css("width", "66%");
 }
 
 function hideSavedQuotes() {
-    $("#savedQuotesTable").addClass('clear');
     $("#hideSaved").addClass("clear");
+    $("#showSaved").removeClass("clear");
+
+    $("#savedQuotesTableWrapper").html('<table id="savedQuotesTable" class="clear"></table>')
+
+    $("#input-wrapper").show();
+    $("#quoteTypeForm").show();
+    $("#sortForm").show();
+    $("#display-wrapper").show();
+
+}
+
+
+function clearSavedQuotes() {
+    chrome.storage.sync.clear();
 }

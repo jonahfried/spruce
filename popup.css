@@ -184,3 +184,18 @@ form {
     display: flex;
     justify-content: space-around;
 }
+
+.saved-buttons-wrapper {
+    margin-bottom: 5px;
+}
+
+.saved-buttons-wrapper button {
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.saved-buttons-wrapper button:focus {
+    outline: none;
+}
