@@ -11,12 +11,13 @@ window.addEventListener("DOMContentLoaded", function () {
 
     var quoteFinder = document.getElementById("findQuotes");
 
-    quoteFinder.addEventListener("click", searchPage);
+    quoteFinder.addEventListener("click", () => { searchPage(); $("#userInput").select(); });
 
     document.getElementById("userInput").addEventListener("keydown", function (e) {
         if (e.metaKey && e.key == "Enter") {
             e.preventDefault();
-            searchPage(this.value);
+            // $("#userInput").select();
+            $("#findQuotes").click();
         }
     });
 
@@ -25,6 +26,10 @@ window.addEventListener("DOMContentLoaded", function () {
     $("#showSaved").on("click", showSavedQuotes);
 
     $("#hideSaved").on("click", hideSavedQuotes);
+
+    $("a").on("click", function () {
+        chrome.tabs.create({ url: $(this).attr("href") });
+    })
 });
 
 function sizeIfExtension() {
@@ -94,7 +99,7 @@ function searchPage() {
     console.log("Using Extension Input")
     let userInput = $("#userInput");
     var userText = userInput.val();
-    userInput.select()
+    userInput.select();
 
     if (userText.trim() != "") {
         queryQuotes(userText);
@@ -191,7 +196,7 @@ function displayQuery(d) {
 }
 
 function loadJS() {
-    $("a").on("click", function () {
+    $("td a").on("click", function () {
         chrome.tabs.create({ url: $(this).attr("href") });
     });
 
