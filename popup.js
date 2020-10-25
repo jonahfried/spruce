@@ -11,7 +11,10 @@ window.addEventListener("DOMContentLoaded", function () {
 
     var quoteFinder = document.getElementById("findQuotes");
 
-    quoteFinder.addEventListener("click", () => { searchPage(); $("#userInput").select(); });
+    quoteFinder.addEventListener("click", () => {
+        searchPage();
+        $("#userInput").select();
+    });
 
     document.getElementById("userInput").addEventListener("keydown", function (e) {
         if (e.metaKey && e.key == "Enter") {
@@ -82,12 +85,16 @@ function activateSortButtons() {
     });
 }
 
+// Handles the case where there is text to be 
+// analyzed in localStorage 
+// (for when activated through context menu)
 function handleLocalStore() {
-    if (localStorage["text"] != undefined) {
-        // First we disable the findQuotes button as it isn't necessary 
-        // $("#input-wrapper").addClass("clear");
-        // $("#quoteTypeForm").addClass("clear");
-        $("#userInput").val(localStorage["text"]);
+    var text = localStorage["text"];
+
+    if (text != undefined) {
+        if (text != "undefined") {
+            $("#userInput").val(text);
+        }
         searchPage();
         $("body").css("width", "");
         localStorage.clear();
