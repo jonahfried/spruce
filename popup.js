@@ -161,7 +161,7 @@ function displayQuery(d) {
     var columns = [
         { "field": "buttons", "sortable": false, "title": "Copy" },
         { "field": "sentence", "sortable": false, "title": "Sentence" },
-        { "field": "linked_title", "sortable": false, "title": "Source" },
+        { "field": "linked_title", "sortable": false, "title": "Source", "class": "sourceColumn" },
         { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" },
         { "field": "score", "sortable": true, "title": "score", "class": "clear" },
         { "field": "complexity", "sortable": true, "title": "complexity", "class": "clear" },
@@ -290,7 +290,7 @@ function showSavedQuotes() {
     var columns = [
         { "field": "buttons", "sortable": false, "title": "Copy" },
         { "field": "text", "sortable": false, "title": "Sentence" },
-        { "field": "source", "sortable": false, "title": "Source" },
+        { "field": "source", "sortable": false, "title": "Source", "class": "sourceColumn" },
         { "field": "faiss_idx", "sortable": false, "title": "ID", "class": "clear" },
     ]
     chrome.storage.sync.get(["savedQuotes"], (r) => {
