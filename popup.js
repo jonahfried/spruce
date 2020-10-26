@@ -1,6 +1,6 @@
 const MAX_QUOTE_LEN = 300;
 
-let quoteServerUrl = "https://api.rhymezone.com/sentences";
+let quoteServerUrl = "https://api.onelook.com/sentences";
 
 window.addEventListener("DOMContentLoaded", function () {
     sizeIfExtension();
