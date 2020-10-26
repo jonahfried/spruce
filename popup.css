@@ -181,6 +181,12 @@ table a {
     border: 1px solid rgb(32, 24, 7);
 }
 
+#helpInfo p {
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 form {
     display: flex;
     justify-content: space-around;
