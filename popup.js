@@ -160,7 +160,7 @@ function displayQuery(d) {
 
     var columns = [
         { "field": "buttons", "sortable": false, "title": "Copy" },
-        { "field": "sentence", "sortable": false, "title": "Sentence" },
+        { "field": "sentence", "sortable": false, "title": "Sentence", "class": "sentenceColumn" },
         { "field": "linked_title", "sortable": false, "title": "Source", "class": "sourceColumn" },
         { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" },
         { "field": "score", "sortable": true, "title": "score", "class": "clear" },
@@ -189,6 +189,8 @@ function displayQuery(d) {
         displaySortButtons();
 
         $("#sortForm").on("change", () => { loadButtons(sentences.length); loadJS() });
+
+        removeNbsp();
     } else {
         $("#noResults").removeClass("clear")
     }
@@ -200,6 +202,13 @@ function displayQuery(d) {
     $("#loading").addClass("clear");
 
 
+}
+
+function removeNbsp() {
+    $("td.sentenceColumn").html((i, text) => {
+        console.log(text);
+        return text.replace(/&nbsp;/g, ' ');
+    });
 }
 
 function loadJS() {
@@ -263,6 +272,9 @@ function preprocessQuotes(sentences) {
         sentences[i].buttons = buttons;
         sentences[i].complexity = sentences[i].sentence.length;
     }
+    console.log(sentences.length);
+    sentences = sentences.filter((e) => e.sentence.length < 100);
+    console.log(sentences.length);
     return sentences
 }
 
@@ -312,6 +324,7 @@ function showSavedQuotes() {
         loadButtons(data.length);
         loadDeleteButton(data.length);
         loadJS();
+        removeNbsp();
     });
     table.removeClass('clear');
     $("#hideSaved").removeClass('clear');
