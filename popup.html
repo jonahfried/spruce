@@ -38,74 +38,79 @@
 <body>
     <div class="container-fluid">
 
-        <!--  help button -->
-        <svg id="help" tabindex="0" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question-circle-fill help"
-            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" />
-        </svg>
+    <div class="top-menu">
+        <div id="chrome-extension">
+            Add this as a 
+            <a href="https://chrome.google.com/webstore/search/spruce?hl=en-GB&_category=extensions">Chrome extension</a>
+        </div>
 
-        <!-- Help Info -->
-        <div id="helpInfo" class="clear findQuotesWrapper">
-            <h1>Help</h1>
-            <p>
-              Spruce is a search engine for inspiring sentences. Tell Spruce about something you've read or written and it will find quotations or lyrics that are related to the subject matter, sometimes in surprising and subtle ways. Spruce gives you a diverse set of perspectives on your text that you can cite in your work or reflect upon in your brainstorming.
-            </p>
-            <hr>
-            <h3>Extension menu</h3>
-            <p>
-                To start using Spruce, open up the popup from the extensions bar in the top right of your chrome
-                browser. You may have to click on the little puzzle piece to find Spruce. Pin us to make finding
-                quotes easier! Then, just start writing. When you're done, click "Find Quotes!" and we'll do the rest.
-            </p>
-            <img src="./tutorials/extensionMenu.gif" alt="basic-animation" height="300">
-            <p>
-                Before citing a quote in your document, be sure to search (using the link under
-                the "Source" column) to verify that it's accurately attributed and to get
-                more context about the quote from the Web.
-                You can click under the "Copy" column to copy the quote to your clipboard.
-            </p>
-            <hr>
-            <h3>Context menu</h3>
-            <p>
-                Writing something that you want quotes for? Curious what the world has to say about some topic? Skip the
-                copy + paste and use the context menu! All you have to do is highlight your text, right click it, then
-                "spruce up your selection!"
-            </p>
-            <img src="./tutorials/contextMenu.gif" alt="context-animation" height="300">
-            <hr>
-            <h3>About</h3>
-            <p>
-                Spruce is a free experimental service from <a href="https://datamuse.com">Datamuse</a>,
-                and was created by Jonah Fried and Doug Beeferman.
-            </p>
 
-            <p> How it works: Behind the scenes, Spruce cuts your
-                selection into sentences and then scans a database of
-                quotes looking for evidence of a connection to each sentence,
-                using the
-                <a href="https://tfhub.dev/google/universal-sentence-encoder/4">Google Universal
-                Sentence Encoder</a> to measure the strength of the connection.  The
-                quotes with the most evidence are listed first by default.
-                The quotes and (and verses of lyrics) come from
-                the Web via the <a href="https://commoncrawl.org/">Common Crawl</a> and
-                <a href="https://en.wikiquote.org/wiki/Main_Page">WikiQuote</a>.
-            </p>
-            <p>
-                We'd love to hear your feedback on this tool and get your
-                thoughts on other brainstorming tools that may be useful to you.
-                Please fill out <a href="https://forms.gle/uW3KMun9xquP4Nea8">this feedback form</a>
-                if you have two minutes free!
-            </p>
+            <!--  help button -->
+            <svg id="help" tabindex="0" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-question-circle-fill help"
+                xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" />
+            </svg>
 
-            <footer id="sticky-footer" class="py-4 text-white-50">
-                <div class="container text-center">
-                    <small>
-                        <a href="https://onelook.com/about.shtml#privacy">Privacy policy</a>
-                        <a href="https://forms.gle/uW3KMun9xquP4Nea8">Feedback</a>
-                    </small>
-                </div>
-            </footer>
+            <!-- Help Info -->
+            <div id="helpInfo" class="clear findQuotesWrapper">
+                <h1>Help</h1>
+                <p>
+                  Spruce is a search engine for inspiring sentences. Tell Spruce about something you've read or written and it will find quotations or lyrics that are related to the subject matter, sometimes in surprising and subtle ways. Spruce gives you a diverse set of perspectives on your text that you can cite in your work or reflect upon in your brainstorming.
+                </p>
+                <hr>
+                <h3>Extension menu</h3>
+                <p>
+                    To start using Spruce, open up the popup from the extensions bar in the top right of your chrome
+                    browser. You may have to click on the little puzzle piece to find Spruce. Pin us to make finding
+                    quotes easier! Then, just start writing. When you're done, click "Find Quotes!" and we'll do the rest.
+                </p>
+                <img src="./tutorials/extensionMenu.gif" alt="basic-animation" height="300">
+                <p>
+                    Before citing a quote in your document, be sure to search (using the link under
+                    the "Source" column) to verify that it's accurately attributed and to get
+                    more context about the quote from the Web.
+                    You can click under the "Copy" column to copy the quote to your clipboard.
+                </p>
+                <hr>
+                <h3>Context menu</h3>
+                <p>
+                    Writing something that you want quotes for? Curious what the world has to say about some topic? Skip the
+                    copy + paste and use the context menu! All you have to do is highlight your text, right click it, then
+                    "spruce up your selection!"
+                </p>
+                <img src="./tutorials/contextMenu.gif" alt="context-animation" height="300">
+                <hr>
+                <h3>About</h3>
+                <p>
+                    Spruce is a free experimental service from <a href="https://datamuse.com">Datamuse</a>,
+                    and was created by Jonah Fried and Doug Beeferman.
+                </p>
+
+                <p> How it works: Behind the scenes, Spruce cuts your
+                    selection into sentences and then scans a database of
+                    quotes looking for evidence of a connection to each sentence,
+                    using the
+                    <a href="https://tfhub.dev/google/universal-sentence-encoder/4">Google Universal
+                    Sentence Encoder</a> to measure the strength of the connection.  The
+                    quotes with the most evidence are listed first by default.
+                    The quotes and (and verses of lyrics) come from
+                    the Web via the <a href="https://commoncrawl.org/">Common Crawl</a> and
+                    <a href="https://en.wikiquote.org/wiki/Main_Page">WikiQuote</a>.
+                </p>
+                <p>
+                    We'd love to hear your feedback on this tool and get your
+                    thoughts on other brainstorming tools that may be useful to you.
+                    Please fill out <a href="https://forms.gle/uW3KMun9xquP4Nea8">this feedback form</a>
+                    if you have two minutes free!
+                </p>
+
+                <footer id="sticky-footer" class="py-4 text-white-50">
+                    <a href="https://onelook.com/about.shtml#privacy">Privacy policy</a>
+                    <a href="https://forms.gle/uW3KMun9xquP4Nea8">Feedback</a>
+                </footer>
+            </div>
+
         </div>
 
         <div class="saved-buttons-wrapper">
@@ -116,8 +121,6 @@
         <div id="spruceMain">
             <!-- Header -->
             <div class="findQuotesWrapper">
-                <img id="spruceLogo" class="unselectable" src="icons/icon-128.png" alt="spruce png" height="50"
-                    width="50" />
                 <h1>Spruce</h1>
                 <p>Spruce up your writing!</p>
 

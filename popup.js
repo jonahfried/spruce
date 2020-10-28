@@ -37,9 +37,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
 function sizeIfExtension() {
     if (window.chrome && chrome.runtime && chrome.runtime.id) {
-        $("body").css("width", "600px");
+        // $("body").css("width", "600px");
     } else {
-        $(".container-fluid").css("width", "800px");
+        // $(".container-fluid").css("width", "800px");
         $(".saved-buttons-wrapper").addClass("clear");
     }
 }
@@ -160,7 +160,7 @@ function displayQuery(d) {
 
     var columns = [
         { "field": "buttons", "sortable": false, "title": "Copy" },
-        { "field": "sentence", "sortable": false, "title": "Sentence" },
+        { "field": "sentence", "sortable": false, "title": "Sentence", "class": "sentence" },
         { "field": "linked_title", "sortable": false, "title": "Source", "class": "sourceColumn" },
         { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" },
         { "field": "score", "sortable": true, "title": "score", "class": "clear" },
