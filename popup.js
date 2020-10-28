@@ -206,7 +206,6 @@ function displayQuery(d) {
 
 function removeNbsp() {
     $("td.sentenceColumn").html((i, text) => {
-        console.log(text);
         return text.replace(/&nbsp;/g, ' ');
     });
 }
@@ -272,9 +271,7 @@ function preprocessQuotes(sentences) {
         sentences[i].buttons = buttons;
         sentences[i].complexity = sentences[i].sentence.length;
     }
-    console.log(sentences.length);
     sentences = sentences.filter((e) => e.sentence.length < 100);
-    console.log(sentences.length);
     return sentences
 }
 
