@@ -36,10 +36,17 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 function sizeIfExtension() {
-    if (window.chrome && chrome.runtime && chrome.runtime.id) {
+    let params = new URLSearchParams(window.location.search);
+
+    if (params.has("source") && (params.get("source") == "extension")) {
+        console.log("Spruce running from extension menu");
         $("body").css("width", "600px");
+    } else if (params.has("source") && params.get("source") == "context") {
+        console.log("Spruce running from context menu");
+        $(".saved-buttons-wrapper").addClass("clear");
     } else {
-        $(".container-fluid").css("width", "800px");
+        console.log("Spruce running from tab");
+        $(".container-fluid").css("width", "66%");
         $(".saved-buttons-wrapper").addClass("clear");
     }
 }
@@ -96,7 +103,7 @@ function handleLocalStore() {
             $("#userInput").val(text);
         }
         searchPage();
-        $("body").css("width", "");
+        // $("body").css("width", "");
         localStorage.clear();
     }
 }
@@ -188,9 +195,10 @@ function displayQuery(d) {
 
         displaySortButtons();
 
-        $("#sortForm").on("change", () => { loadButtons(sentences.length); loadJS() });
-
         removeNbsp();
+
+        $("#sortForm").on("change", () => { loadButtons(sentences.length); loadJS(); removeNbsp(); });
+
     } else {
         $("#noResults").removeClass("clear")
     }
@@ -271,7 +279,7 @@ function preprocessQuotes(sentences) {
         sentences[i].buttons = buttons;
         sentences[i].complexity = sentences[i].sentence.length;
     }
-    sentences = sentences.filter((e) => e.sentence.length < 100);
+    // sentences = sentences.filter((e) => e.sentence.length < 100);
     return sentences
 }
 

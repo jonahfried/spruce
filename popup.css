@@ -17,8 +17,8 @@
 body {
     /* width: 600px; */
     /* height: 500px; */
-    /* margin-top: 20px; 
-    margin-bottom: 20px; */
+    /* margin-top: 20px;  */
+    /* margin-bottom: 20px; */
     margin-left: 15px;
     margin-right: 15px;
     background: rgb(218, 252, 218);
@@ -31,6 +31,7 @@ body {
 }
 
 .container-fluid {
+    position: relative;
     padding: 10px;
     background: rgb(218, 252, 218);
     height: 100%;
@@ -132,8 +133,8 @@ table a {
 
 .help {
     position: absolute;
-    right: 20px;
-    top: 25px;
+    right: 5px;
+    top: 5px;
 }
 
 .help:focus {
@@ -198,10 +199,13 @@ form {
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 #sortForm label {
     border: 1px solid rgb(32, 24, 7);
+
 }
 
 #sticky-footer {
