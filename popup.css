@@ -224,7 +224,7 @@ table.table-bordered tbody tr:hover td button {
 }
 .container-fluid {
     max-width: 70%;
-    min-width: 800px;
+    min-width: 750px;
     padding-bottom: 50px;
 }
 .unselectable {
