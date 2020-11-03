@@ -139,7 +139,12 @@ table a {
 
 .help:focus {
     outline: none;
+}
 
+.theme {
+    position: absolute;
+    right: 25px;
+    top: 5px
 }
 
 .link {

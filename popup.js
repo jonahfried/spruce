@@ -7,7 +7,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
     activateHelpButton();
 
+    activateThemeButton();
+
     handleLocalStore();
+
+    handleTheme();
 
     var quoteFinder = document.getElementById("findQuotes");
 
@@ -35,6 +39,45 @@ window.addEventListener("DOMContentLoaded", function () {
     })
 });
 
+function activateThemeButton() {
+    $("#sun").on("click", () => {
+        console.log("setting theme to dark");
+        activateDarkTheme();
+    });
+
+    $("#moon").on("click", () => {
+        console.log("setting theme to light");
+        activateLightTheme();
+    });
+}
+
+function handleTheme() {
+    chrome.storage.sync.get(["spruceTheme"], r => {
+        if (r.spruceTheme == "dark") {
+            activateDarkTheme();
+        }
+    })
+}
+
+function activateDarkTheme() {
+    $(".container-fluid").css("background-color", 'rgb(117, 170, 86)');
+    $("body").css("background-image", 'url("./more-leaves-on-green.png")');
+
+    chrome.storage.sync.set({ spruceTheme: "dark" })
+    $("#moon").removeClass("clear");
+    $("#sun").addClass("clear");
+}
+
+function activateLightTheme() {
+    $(".container-fluid").css("background-color", 'rgb(218, 252, 218)');
+    $("body").css("background-image", 'url("./more-leaves.png")');
+
+    chrome.storage.sync.set({ spruceTheme: "light" })
+    $("#moon").addClass("clear");
+    $("#sun").removeClass("clear");
+
+}
+
 function sizeIfExtension() {
     let params = new URLSearchParams(window.location.search);
 
@@ -42,8 +85,6 @@ function sizeIfExtension() {
         console.log("Spruce running from extension menu");
         $("body").css("width", "600px");
     } else if (params.has("source") && params.get("source") == "context") {
-        console.log("Spruce running from context menu");
-        $(".saved-buttons-wrapper").addClass("clear");
     } else {
         console.log("Spruce running from tab");
         $(".container-fluid").css("width", "66%");
@@ -52,7 +93,7 @@ function sizeIfExtension() {
 }
 
 function activateHelpButton() {
-    $("#help").on("click", function () {
+    $(".help").on("click", function () {
         $("#helpInfo").toggleClass("clear");
         // $("#helpInfo").on("click", () => {
         //     $("#helpInfo").toggleClass("clear");
@@ -60,6 +101,9 @@ function activateHelpButton() {
         // });
         $("#spruceMain").toggleClass("clear");
         $(".saved-buttons-wrapper").toggleClass("clear");
+
+        $(".help").toggleClass("clear");
+
     });
 }
 
@@ -353,5 +397,5 @@ function hideSavedQuotes() {
 
 
 function clearSavedQuotes() {
-    chrome.storage.sync.clear();
+    chrome.storage.sync.set({ savedQuotes: {} }, () => console.log("saved quotes cleared"));
 }
