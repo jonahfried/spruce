@@ -33,6 +33,7 @@
     <script src="popup.js"></script>
 
     <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="switch.css">
 </head>
 
 <body>
@@ -87,6 +88,29 @@
                     "spruce up your selection!"
                 </p>
                 <img src="./tutorials/contextMenu.gif" alt="context-animation" height="300">
+
+                <hr>
+                <h3>Jokes</h3>
+                <p>
+                    Do you like jokes? We do!
+                </p>
+                <p>
+                    We would like to allow our service to give you a topical laugh!
+                    However, unfortunately, jokes have a tendency of slipping into offensive areas...
+                </p>
+                <p>
+                    If you're okay
+                    with that, then go ahead and turn jokes on below and return to the search bar! Just keep in mind
+                    that we don't know what you'll find, and certainly don't condone any particular joke.
+                </p>
+                <div>
+                    <label class="switch">
+                        <input id="jokes-checkbox" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="jokes-toggle-label"></span>
+                </div>
+
                 <hr>
                 <h3>About</h3>
                 <p>
@@ -163,6 +187,13 @@
                         <input type="radio" name="option" id="quoteType" value="quotes" checked>
                         <label for="quoteType">
                             Quotes
+                        </label>
+
+                    </div>
+                    <div id="jokes-selector" class="clear">
+                        <input type="radio" name="option" id="lyricsType" value="jokes">
+                        <label for="lyricsType">
+                            Jokes
                         </label>
 
                     </div>

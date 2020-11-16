@@ -9,7 +9,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
     // activateThemeButton();
 
+    activateJokesToggle();
+
     handleLocalStore();
+
+    handleJokeToggle();
 
     // handleTheme();
 
@@ -75,7 +79,26 @@ function activateLightTheme() {
     chrome.storage.sync.set({ spruceTheme: "light" })
     $("#moon").addClass("clear");
     $("#sun").removeClass("clear");
+}
 
+function activateJokesToggle() {
+    $("#jokes-checkbox").on("change", e => {
+        var jokesOn = document.getElementById("jokes-checkbox").checked;
+        chrome.storage.sync.set({ jokesOn }, () => console.log("Jokes toggled"));
+        $("#jokes-selector").toggleClass("clear");
+    })
+}
+
+function handleJokeToggle() {
+    chrome.storage.sync.get(["jokesOn"], r => {
+        if (r.jokesOn === undefined) {
+            return
+        }
+        document.getElementById("jokes-checkbox").checked = r.jokesOn;
+        if (r.jokesOn) {
+            $("#jokes-selector").removeClass("clear");
+        }
+    })
 }
 
 function sizeIfExtension() {
@@ -83,6 +106,7 @@ function sizeIfExtension() {
 
     if (params.has("source") && (params.get("source") == "extension")) {
         console.log("Spruce running from extension menu");
+        $("#chrome-extension").addClass('clear');
         // $("body").css("width", "600px");
     } else if (params.has("source") && params.get("source") == "context") {
     } else {
