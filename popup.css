@@ -116,7 +116,7 @@ label.btn.btn-secondary:not(:disabled):not(.disabled).active {
     margin: 30px auto;
     justify-content: center;
 }
-#table-wrapper {
+#table-wrapper, #savedQuotesTableWrapper {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 0px 10px 0px #e0e0e0;

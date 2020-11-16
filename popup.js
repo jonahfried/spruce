@@ -109,6 +109,8 @@ function sizeIfExtension() {
         $("#chrome-extension").addClass('clear');
         // $("body").css("width", "600px");
     } else if (params.has("source") && params.get("source") == "context") {
+        $("#chrome-extension").addClass('clear');
+
     } else {
         console.log("Spruce running from tab");
         // $(".container-fluid").css("width", "66%");
@@ -281,7 +283,7 @@ function displayQuery(d) {
 }
 
 function removeNbsp() {
-    $("td.sentenceColumn").html((i, text) => {
+    $("td.sentence").html((i, text) => {
         return text.replace(/&nbsp;/g, ' ');
     });
 }
