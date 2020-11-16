@@ -7,11 +7,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
     activateHelpButton();
 
-    activateThemeButton();
+    // activateThemeButton();
 
     handleLocalStore();
 
-    handleTheme();
+    // handleTheme();
 
     var quoteFinder = document.getElementById("findQuotes");
 
@@ -83,11 +83,11 @@ function sizeIfExtension() {
 
     if (params.has("source") && (params.get("source") == "extension")) {
         console.log("Spruce running from extension menu");
-        $("body").css("width", "600px");
+        // $("body").css("width", "600px");
     } else if (params.has("source") && params.get("source") == "context") {
     } else {
         console.log("Spruce running from tab");
-        $(".container-fluid").css("width", "66%");
+        // $(".container-fluid").css("width", "66%");
         $(".saved-buttons-wrapper").addClass("clear");
     }
 }
@@ -102,7 +102,7 @@ function activateHelpButton() {
         $("#spruceMain").toggleClass("clear");
         $(".saved-buttons-wrapper").toggleClass("clear");
 
-        $(".help").toggleClass("clear");
+        // $(".help").toggleClass("clear");
 
     });
 }
@@ -211,7 +211,7 @@ function displayQuery(d) {
 
     var columns = [
         { "field": "buttons", "sortable": false, "title": "Copy" },
-        { "field": "sentence", "sortable": false, "title": "Sentence", "class": "sentenceColumn" },
+        { "field": "sentence", "sortable": false, "title": "Sentence", "class": "sentence" },
         { "field": "linked_title", "sortable": false, "title": "Source", "class": "sourceColumn" },
         { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" },
         { "field": "score", "sortable": true, "title": "score", "class": "clear" },
