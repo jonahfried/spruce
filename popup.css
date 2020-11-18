@@ -264,6 +264,8 @@ table.table-bordered tbody tr:hover td button {
 
 
 /*  Unnecessary? */
+
+/*
 .sort-buttons-wrapper {
     display: flex;
     flex-direction: row;
@@ -303,7 +305,6 @@ form {
 }
 
 #sticky-footer {
-    /* background-color: rgb(25, 59, 25); */
     margin-top: 15px;
     margin-bottom: 5px;
 }
@@ -333,3 +334,4 @@ form {
 .saved-buttons-wrapper button:focus {
     outline: none;
 }
+*/
