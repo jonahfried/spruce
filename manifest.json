@@ -1,11 +1,10 @@
 {
     "manifest_version": 2,
-    "name": "Spruce",
+    "name": "Spruce: Find quotes and lyrics",
     "description": "Spruce is a powerful tool for exploring famous quotes related to your writing.",
-    "version": "0.1",
+    "version": "0.2",
     "permissions": [
         "storage",
-        "webRequest",
         "contextMenus"
     ],
     "icons": {
