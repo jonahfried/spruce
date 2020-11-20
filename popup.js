@@ -9,11 +9,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
     // activateThemeButton();
 
-    activateJokesToggle();
+    // activateJokesToggle();
 
     handleLocalStore();
 
-    handleJokeToggle();
+    // handleJokeToggle();
 
     // handleTheme();
 
@@ -108,13 +108,19 @@ function sizeIfExtension() {
         console.log("Spruce running from extension menu");
         $("#chrome-extension").addClass('clear');
         // $("body").css("width", "600px");
+        activateJokesToggle();
+        handleJokeToggle();
     } else if (params.has("source") && params.get("source") == "context") {
         $("#chrome-extension").addClass('clear');
+        activateJokesToggle();
+        handleJokeToggle();
 
     } else {
         console.log("Spruce running from tab");
         // $(".container-fluid").css("width", "66%");
         $(".saved-buttons-wrapper").addClass("clear");
+        $("#dropdown-item-save").addClass("clear");
+        $("#jokes-help-section").addClass("clear");
     }
 }
 
