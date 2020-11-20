@@ -333,3 +333,8 @@ form {
 .saved-buttons-wrapper button:focus {
     outline: none;
 }
+
+
+.selected-row {
+    background-color: #75aa567a !important;
+}

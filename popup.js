@@ -255,7 +255,7 @@ function displayQuery(d) {
             exportTypes: ['excel', 'csv', 'txt'],
         });
 
-        loadButtons(sentences.length);
+        // loadButtons(sentences.length);
 
         loadJS();
 
@@ -267,7 +267,7 @@ function displayQuery(d) {
 
         removeNbsp();
 
-        $("#sortForm").on("change", () => { loadButtons(sentences.length); loadJS(); removeNbsp(); });
+        $("#sortForm").on("change", () => { loadJS(); removeNbsp(); });
 
     } else {
         $("#noResults").removeClass("clear")
@@ -293,7 +293,68 @@ function loadJS() {
         chrome.tabs.create({ url: $(this).attr("href") });
     });
 
-    $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
+    // $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
+
+
+    $("#displayTable tbody tr td button").contextMenu({
+        menuSelector: "#contextMenu",
+        menuSelected: function ($invokedOn, $selectedMenu) {
+            // var msg = "MENU 1\nYou selected the menu item '" + $selectedMenu.text() + "' (" + $selectedMenu.attr("value") + ") " + " on the value '" + $invokedOn.text() + "'";
+            // alert(msg);
+            var row = $invokedOn.parent().parent();
+            switch ($selectedMenu.attr("value")) {
+                case "copy":
+                    var text = row.find("td").eq(1).text();
+                    let sourceText = row.find("td").eq(2).text();
+                    navigator.clipboard.writeText(`"${text}" (${sourceText})`);
+                    break;
+
+                case "save":
+                    var children = row.children();
+                    var text = children[1].innerText;
+                    var source = children[2].children[0].outerHTML;
+                    var id = children[3].innerText;
+                    chrome.storage.sync.get(['savedQuotes'], function (results) {
+                        var savedQuotes = results.savedQuotes;
+
+                        if (savedQuotes == undefined) {
+                            savedQuotes = {};
+                        }
+                        savedQuotes[id] = { text, source };
+
+                        chrome.storage.sync.set({ savedQuotes }, function () {
+                            console.log("Saved quote");
+                        });
+                    });
+                    break;
+
+                case "report":
+                    var children = row.children();
+                    var text = children[1].innerText;
+                    var source = children[2].children[0].outerHTML;
+                    var id = children[3].innerText;
+                    $.ajax({
+                        method: "POST",
+                        url: "https://api.onelook.com/report",
+                        contentType: "application/json",
+                        data: JSON.stringify({ text, source, id })
+                    }).done(() => alert("Thank you for your report."))
+                    break;
+            }
+            var sentence = row.find("td").eq(1);
+
+        },
+        onMenuShow: function ($invokedOn) {
+            var tr = $invokedOn.closest("tr");
+            $(tr).addClass("selected-row");
+        },
+        onMenuHide: function ($invokedOn) {
+            var tr = $invokedOn.closest("tr");
+            $(tr).removeClass("selected-row");
+        }
+    });
+
+
 }
 
 function loadButtons(sentencesLen) {
@@ -345,7 +406,7 @@ function loadDeleteButton(sentencesLen) {
 
 function preprocessQuotes(sentences) {
     for (let i = 0; i < sentences.length; i++) {
-        let buttons = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
+        let buttons = `<button id=${"button" + i} data-toggle="popover">${"&#9776;"}</button>`;
         sentences[i].buttons = buttons;
         sentences[i].complexity = sentences[i].sentence.length;
     }
