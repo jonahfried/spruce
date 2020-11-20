@@ -5,7 +5,7 @@
 Spruce is a chrome extension for finding famous quotes and song lyrics that fit thematically with your writing. When activated, the extension will attempt to find text you are writing, parse the text for sentences, and then perform contextual analysis of your sentences to look for matching quotes.
 
 # Download
-Go add Spruce as a [chrome extension!](https://chrome.google.com/webstore/detail/spruce-find-quotes-and-ly/mjhikdbndcnackjhokmdcohhnmkenbck?hl=en-US). It's as easy as that. 
+Go add Spruce as a [chrome extension](https://chrome.google.com/webstore/detail/spruce-find-quotes-and-ly/mjhikdbndcnackjhokmdcohhnmkenbck?hl=en-US)! It's as easy as that. 
 
 <!-- Fear of commitment? [Try it out](https://onelook.com/spruce) first. -->
 
