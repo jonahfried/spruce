@@ -299,55 +299,13 @@ function loadJS() {
         chrome.tabs.create({ url: $(this).attr("href") });
     });
 
-    // $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
-
-
     $("#displayTable tbody tr td button").contextMenu({
         menuSelector: "#contextMenu",
         menuSelected: function ($invokedOn, $selectedMenu) {
             // var msg = "MENU 1\nYou selected the menu item '" + $selectedMenu.text() + "' (" + $selectedMenu.attr("value") + ") " + " on the value '" + $invokedOn.text() + "'";
             // alert(msg);
             var row = $invokedOn.parent().parent();
-            switch ($selectedMenu.attr("value")) {
-                case "copy":
-                    var text = row.find("td").eq(1).text();
-                    let sourceText = row.find("td").eq(2).text();
-                    navigator.clipboard.writeText(`"${text}" (${sourceText})`);
-                    break;
-
-                case "save":
-                    var children = row.children();
-                    var text = children[1].innerText;
-                    var source = children[2].children[0].outerHTML;
-                    var id = children[3].innerText;
-                    chrome.storage.sync.get(['savedQuotes'], function (results) {
-                        var savedQuotes = results.savedQuotes;
-
-                        if (savedQuotes == undefined) {
-                            savedQuotes = {};
-                        }
-                        savedQuotes[id] = { text, source };
-
-                        chrome.storage.sync.set({ savedQuotes }, function () {
-                            console.log("Saved quote");
-                        });
-                    });
-                    break;
-
-                case "report":
-                    var children = row.children();
-                    var text = children[1].innerText;
-                    var source = children[2].children[0].outerHTML;
-                    var id = children[3].innerText;
-                    $.ajax({
-                        method: "POST",
-                        url: "https://api.onelook.com/report",
-                        contentType: "application/json",
-                        data: JSON.stringify({ text, source, id })
-                    }).done(() => alert("Thank you for your report."))
-                    break;
-            }
-            var sentence = row.find("td").eq(1);
+            handleActionSelection(row, $selectedMenu.attr("value"));
 
         },
         onMenuShow: function ($invokedOn) {
@@ -361,6 +319,51 @@ function loadJS() {
     });
 
 
+}
+
+function handleActionSelection(row, action) {
+    switch (action) {
+        case "copy":
+            var text = row.find("td").eq(1).text();
+            let sourceText = row.find("td").eq(2).text();
+            navigator.clipboard.writeText(`"${text}" (${sourceText})`);
+            break;
+
+        case "save":
+            var children = row.children();
+            var text = children[1].innerText;
+            var source = children[2].children[0].outerHTML;
+            var id = children[3].innerText;
+            chrome.storage.sync.get(['savedQuotes'], function (results) {
+                var savedQuotes = results.savedQuotes;
+
+                if (savedQuotes == undefined) {
+                    savedQuotes = {};
+                }
+                savedQuotes[id] = { text, source };
+
+                chrome.storage.sync.set({ savedQuotes }, function () {
+                    console.log("Saved quote");
+                });
+            });
+            break;
+
+        case "report":
+            var children = row.children();
+            var text = children[1].innerText;
+            var source = children[2].children[0].outerHTML;
+            var id = children[3].innerText;
+            if (confirm("Report this quotation?")) {
+                $.ajax({
+                    method: "POST",
+                    url: "https://api.onelook.com/report",
+                    contentType: "application/json",
+                    data: JSON.stringify({ text, source, id })
+                }).done(() => alert("Thank you for your report."));
+                row.hide();
+            }
+            break;
+    }
 }
 
 function loadButtons(sentencesLen) {
