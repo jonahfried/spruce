@@ -348,6 +348,12 @@ function handleActionSelection(row, action) {
             });
             break;
 
+        case "similar":
+            var text = row.find("td").eq(1).text();
+            $("#userInput").val(text);
+            $("#findQuotes").click();
+            break;
+
         case "report":
             var children = row.children();
             var text = children[1].innerText;
