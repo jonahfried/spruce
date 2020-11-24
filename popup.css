@@ -23,6 +23,7 @@ body {
     background: #fcfcfc;
     color: #333;
     overflow-y: scroll;
+    overscroll-behavior-x: none;
 }
 body a {
     font-style: italic;
