@@ -9,11 +9,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
     // activateThemeButton();
 
-    activateJokesToggle();
+    // activateJokesToggle();
 
     handleLocalStore();
 
-    handleJokeToggle();
+    // handleJokeToggle();
 
     // handleTheme();
 
