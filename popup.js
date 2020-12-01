@@ -9,11 +9,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
     // activateThemeButton();
 
-    activateJokesToggle();
+    // activateJokesToggle();
 
     handleLocalStore();
 
-    handleJokeToggle();
+    // handleJokeToggle();
 
     // handleTheme();
 
@@ -108,13 +108,19 @@ function sizeIfExtension() {
         console.log("Spruce running from extension menu");
         $("#chrome-extension").addClass('clear');
         // $("body").css("width", "600px");
+        activateJokesToggle();
+        handleJokeToggle();
     } else if (params.has("source") && params.get("source") == "context") {
         $("#chrome-extension").addClass('clear');
+        activateJokesToggle();
+        handleJokeToggle();
 
     } else {
         console.log("Spruce running from tab");
         // $(".container-fluid").css("width", "66%");
         $(".saved-buttons-wrapper").addClass("clear");
+        $("#dropdown-item-save").addClass("clear");
+        $("#jokes-help-section").addClass("clear");
     }
 }
 
@@ -236,7 +242,7 @@ function displayQuery(d) {
     // console.log(sentences);
 
     var columns = [
-        { "field": "buttons", "sortable": false, "title": "Copy" },
+        { "field": "buttons", "sortable": false, "title": "" },
         { "field": "sentence", "sortable": false, "title": "Sentence", "class": "sentence" },
         { "field": "linked_title", "sortable": false, "title": "Source", "class": "sourceColumn" },
         { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" },
@@ -255,7 +261,7 @@ function displayQuery(d) {
             exportTypes: ['excel', 'csv', 'txt'],
         });
 
-        loadButtons(sentences.length);
+        // loadButtons(sentences.length);
 
         loadJS();
 
@@ -267,7 +273,7 @@ function displayQuery(d) {
 
         removeNbsp();
 
-        $("#sortForm").on("change", () => { loadButtons(sentences.length); loadJS(); removeNbsp(); });
+        $("#sortForm").on("change", () => { loadJS(); removeNbsp(); });
 
     } else {
         $("#noResults").removeClass("clear")
@@ -293,7 +299,77 @@ function loadJS() {
         chrome.tabs.create({ url: $(this).attr("href") });
     });
 
-    $('[data-toggle="popover"]').popover({ content: "copied!", animation: true, placement: "top", trigger: "focus" });
+    $("#displayTable tbody tr td button").contextMenu({
+        menuSelector: "#contextMenu",
+        menuSelected: function ($invokedOn, $selectedMenu) {
+            // var msg = "MENU 1\nYou selected the menu item '" + $selectedMenu.text() + "' (" + $selectedMenu.attr("value") + ") " + " on the value '" + $invokedOn.text() + "'";
+            // alert(msg);
+            var row = $invokedOn.parent().parent();
+            handleActionSelection(row, $selectedMenu.attr("value"));
+
+        },
+        onMenuShow: function ($invokedOn) {
+            var tr = $invokedOn.closest("tr");
+            $(tr).addClass("selected-row");
+        },
+        onMenuHide: function ($invokedOn) {
+            var tr = $invokedOn.closest("tr");
+            $(tr).removeClass("selected-row");
+        }
+    });
+
+
+}
+
+function handleActionSelection(row, action) {
+    switch (action) {
+        case "copy":
+            var text = row.find("td").eq(1).text();
+            let sourceText = row.find("td").eq(2).text();
+            navigator.clipboard.writeText(`"${text}" (${sourceText})`);
+            break;
+
+        case "save":
+            var children = row.children();
+            var text = children[1].innerText;
+            var source = children[2].children[0].outerHTML;
+            var id = children[3].innerText;
+            chrome.storage.sync.get(['savedQuotes'], function (results) {
+                var savedQuotes = results.savedQuotes;
+
+                if (savedQuotes == undefined) {
+                    savedQuotes = {};
+                }
+                savedQuotes[id] = { text, source };
+
+                chrome.storage.sync.set({ savedQuotes }, function () {
+                    console.log("Saved quote");
+                });
+            });
+            break;
+
+        case "similar":
+            var text = row.find("td").eq(1).text();
+            $("#userInput").val(text);
+            $("#findQuotes").click();
+            break;
+
+        case "report":
+            var children = row.children();
+            var text = children[1].innerText;
+            var source = children[2].children[0].outerHTML;
+            var id = children[3].innerText;
+            if (confirm("Report this quotation?")) {
+                $.ajax({
+                    method: "POST",
+                    url: "https://api.onelook.com/report",
+                    contentType: "application/json",
+                    data: JSON.stringify({ text, source, id })
+                }).done(() => alert("Thank you for your report."));
+                row.hide();
+            }
+            break;
+    }
 }
 
 function loadButtons(sentencesLen) {
@@ -345,7 +421,7 @@ function loadDeleteButton(sentencesLen) {
 
 function preprocessQuotes(sentences) {
     for (let i = 0; i < sentences.length; i++) {
-        let buttons = `<button id=${"button" + i} data-toggle="popover">${String.fromCodePoint("0x1f4cb")}</button>`;
+        let buttons = `<button id=${"button" + i} data-toggle="popover">${"&#9776;"}</button>`;
         sentences[i].buttons = buttons;
         sentences[i].complexity = sentences[i].sentence.length;
     }
