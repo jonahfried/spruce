@@ -242,7 +242,7 @@ function displayQuery(d) {
     // console.log(sentences);
 
     var columns = [
-        { "field": "buttons", "sortable": false, "title": "Copy" },
+        { "field": "buttons", "sortable": false, "title": "" },
         { "field": "sentence", "sortable": false, "title": "Sentence", "class": "sentence" },
         { "field": "linked_title", "sortable": false, "title": "Source", "class": "sourceColumn" },
         { "field": "faiss_idx", "sortable": true, "title": "ID", "class": "clear" },
