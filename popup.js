@@ -356,15 +356,16 @@ function handleActionSelection(row, action) {
 
         case "report":
             var children = row.children();
-            var text = children[1].innerText;
-            var source = children[2].children[0].outerHTML;
-            var id = children[3].innerText;
+            var sentence = children[1].innerText;
+            var title = children[2].children[0].outerHTML;
+            var faiss_idx = children[3].innerText;
+            var reported = true;
             if (confirm("Report this quotation?")) {
                 $.ajax({
                     method: "POST",
-                    url: "https://api.onelook.com/report",
+                    url: quoteServerUrl,
                     contentType: "application/json",
-                    data: JSON.stringify({ text, source, id })
+                    data: JSON.stringify({ sentence, faiss_idx, title, reported })
                 }).done(() => alert("Thank you for your report."));
                 row.hide();
             }
