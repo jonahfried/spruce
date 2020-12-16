@@ -133,9 +133,8 @@ function activateHelpButton() {
         // });
         $("#spruceMain").toggleClass("clear");
         $(".saved-buttons-wrapper").toggleClass("clear");
-
+        gtagBrowser("click", "Navigation", "help");
         // $(".help").toggleClass("clear");
-
     });
 }
 
@@ -154,14 +153,17 @@ function activateSortButtons() {
         id.click();
         switch (sortBy) {
             case "relevance":
+                gtagBrowser("click", "Sorting", "relevance");
                 relevance.click();
                 relevance.click();
                 break;
             case "complexity":
+                gtagBrowser("click", "Sorting", "complexity");
                 complexity.click();
                 complexity.click();
                 break;
             case "simplicity":
+                gtagBrowser("click", "Sorting", "simplicity");
                 complexity.click();
                 break;
         }
@@ -186,6 +188,7 @@ function handleLocalStore() {
 
 
 function searchPage() {
+    gtagBrowser("click", "Search", "find_quotes");
     console.log("Using Extension Input")
     let userInput = $("#userInput");
     var userText = userInput.val();
@@ -324,12 +327,14 @@ function loadJS() {
 function handleActionSelection(row, action) {
     switch (action) {
         case "copy":
+            gtagBrowser("click", "Action", "copy");
             var text = row.find("td").eq(1).text();
             let sourceText = row.find("td").eq(2).text();
             navigator.clipboard.writeText(`"${text}" (${sourceText})`);
             break;
 
         case "save":
+            gtagBrowser("click", "Action", "save");
             var children = row.children();
             var text = children[1].innerText;
             var source = children[2].children[0].outerHTML;
@@ -349,12 +354,14 @@ function handleActionSelection(row, action) {
             break;
 
         case "similar":
+            gtagBrowser("click", "Action", "similar");
             var text = row.find("td").eq(1).text();
             $("#userInput").val(text);
             $("#findQuotes").click();
             break;
 
         case "report":
+            gtagBrowser("click", "Action", "report");
             var children = row.children();
             var sentence = children[1].innerText;
             var title = children[2].children[0].outerHTML;
@@ -501,4 +508,16 @@ function hideSavedQuotes() {
 
 function clearSavedQuotes() {
     chrome.storage.sync.set({ savedQuotes: {} }, () => console.log("saved quotes cleared"));
+}
+
+
+
+function gtagBrowser(name, category, label) {
+    /* EXCLUDE_IF_WEB 
+     gtag("event", name, {
+         "event_category": category,
+         "event_label": label
+     });
+ 
+     EXCLUDE_IF_WEB */
 }
