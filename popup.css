@@ -204,6 +204,17 @@ table.table-bordered tbody tr:hover td button {
 #helpInfo #sticky-footer a {
     margin-right: 15px;
 }
+
+
+#sticky-footer-main {
+    text-align: center;
+}
+
+#sticky-footer-main a {
+    margin-right: 15px;
+}
+
+
 .clear {
     display: none !important;
 }
@@ -251,7 +262,7 @@ table.table-bordered tbody tr:hover td button {
 .container-fluid {
     max-width: 70%;
     min-width: 750px;
-    padding-bottom: 50px;
+    /* padding-bottom: 50px; */
 }
 .unselectable {
     -moz-user-select: -moz-none;
