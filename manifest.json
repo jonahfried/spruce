@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Spruce: Find quotes and lyrics",
     "description": "Spruce is a powerful tool for exploring famous quotes related to your writing.",
-    "version": "0.3",
+    "version": "0.4",
     "permissions": [
         "storage",
         "contextMenus"
