@@ -45,7 +45,7 @@
                         var $selectedMenu = $(e.target);
 
                         callOnMenuHide(menu);
-                        menu.settings.menuSelected.call(this, $invokedOn, $selectedMenu);
+                        menu.settings.menuSelected.call(this, $invokedOn, $(this));
                     });
 
                 callOnMenuShow(menu);

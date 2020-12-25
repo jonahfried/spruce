@@ -272,6 +272,9 @@ table.table-bordered tbody tr:hover td button {
     user-select: none;
     user-drag: none;
 }
+.dropdown-item {
+    cursor: default;
+}
 
 
 /*  Unnecessary? */
