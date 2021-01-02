@@ -41,11 +41,11 @@
 
 
     <!-- Custom JS -->
-    <script src="popup.js"></script>
+    <script src="popup.js?v=2"></script>
     <script src="context-menu.js"></script>
 
 
-    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="popup.css?v=2">
     <link rel="stylesheet" href="switch.css">
 
 </head>
@@ -66,7 +66,7 @@ EXCLUDE_IF_WEB -->
 
             <!--  help button -->
             <svg id="help" title="Help" tabindex="0" width="1em" height="1em" viewBox="0 0 16 16"
-                class="bi bi-question-circle-fill help" xmlns="http://www.w3.org/2000/svg">
+                class="bi bi-question-circle-fill help help-top" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
                     d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.496 6.033a.237.237 0 0 1-.24-.247C5.35 4.091 6.737 3.5 8.005 3.5c1.396 0 2.672.73 2.672 2.24 0 1.08-.635 1.594-1.244 2.057-.737.559-1.01.768-1.01 1.486v.105a.25.25 0 0 1-.25.25h-.81a.25.25 0 0 1-.25-.246l-.004-.217c-.038-.927.495-1.498 1.168-1.987.59-.444.965-.736.965-1.371 0-.825-.628-1.168-1.314-1.168-.803 0-1.253.478-1.342 1.134-.018.137-.128.25-.266.25h-.825zm2.325 6.443c-.584 0-1.009-.394-1.009-.927 0-.552.425-.94 1.01-.94.609 0 1.028.388 1.028.94 0 .533-.42.927-1.029.927z" />
             </svg>
@@ -178,8 +178,8 @@ EXCLUDE_IF_WEB -->
                     Please fill out <a href="https://forms.gle/uW3KMun9xquP4Nea8">this feedback form</a>
                     if you have two minutes free!
                 </p>
-
                 <footer id="sticky-footer" class="py-4 text-white-50">
+		    <a href="#" onclick="location.reload();">Go back</a>
                     <a href="https://onelook.com/about.shtml#privacy">Privacy policy</a>
                     <a href="https://forms.gle/uW3KMun9xquP4Nea8">Feedback</a>
                 </footer>
@@ -211,7 +211,7 @@ EXCLUDE_IF_WEB -->
             <!-- Header -->
             <div class="findQuotesWrapper">
                 <h1>Spruce</h1>
-                <p>Spruce up your writing!</p>
+                <p>The inspiration search engine</p>
 
                 <div>
 
@@ -233,17 +233,16 @@ EXCLUDE_IF_WEB -->
                         </label>
 
                     </div>
-                    <div id="jokes-selector" class="clear">
-                        <input type="radio" name="option" id="jokesType" value="jokes">
-                        <label for="jokesType">
-                            Jokes
-                        </label>
-
-                    </div>
                     <div>
                         <input type="radio" name="option" id="lyricsType" value="lyrics">
                         <label for="lyricsType">
                             Lyrics and Poetry
+                        </label>
+                    </div>
+                    <div id="jokes-selector" class="clear">
+                        <input type="radio" name="option" id="jokesType" value="jokes">
+                        <label for="jokesType">
+                            Jokes
                         </label>
 
                     </div>
@@ -343,6 +342,7 @@ EXCLUDE_IF_WEB -->
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script> -->
             <footer id="sticky-footer-main" class="py-4 text-white-50">
+                <a href="#" class="help">Help</a>
                 <a href="https://onelook.com/about.shtml#privacy">Privacy policy</a>
                 <a href="https://forms.gle/uW3KMun9xquP4Nea8">Feedback</a>
             </footer>

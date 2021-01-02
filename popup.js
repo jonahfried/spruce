@@ -219,7 +219,10 @@ function queryQuotes(userText) {
     $("#noResults").addClass("clear");
     $("#noInput").addClass("clear");
 
-    var input_data = { "query": userText, "doc_mode": true, "selector": getQueryType(), "max_results": 50, "wke": false };
+    var selector = getQueryType();
+    var doc_mode = true;
+    var input_data = { "query": userText, "doc_mode": doc_mode,
+		       "selector": selector, "max_results": 50, "wke": false };
     $.ajax({
         method: "POST",
         url: quoteServerUrl + "&mode=" + getQueryType(),
@@ -513,11 +516,8 @@ function clearSavedQuotes() {
 
 
 function gtagBrowser(name, category, label) {
-    /* EXCLUDE_IF_WEB 
      gtag("event", name, {
          "event_category": category,
          "event_label": label
      });
- 
-     EXCLUDE_IF_WEB */
 }

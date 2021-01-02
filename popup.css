@@ -174,6 +174,9 @@ table.table-bordered tbody tr:hover td button {
 .sentence {
     word-wrap: break-word;
 }
+.sentence b {
+    background-color: #FFFFbb;
+}
 .sourceColumn {
     width: 30%;
 }
@@ -227,7 +230,7 @@ table.table-bordered tbody tr:hover td button {
     margin-top: 6px;
 }
 
-.help {
+.help-top {
     position: absolute;
     right: 5px;
     top: 5px;
