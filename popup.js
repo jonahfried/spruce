@@ -141,6 +141,7 @@ function activateHelpButton() {
 function activateSortButtons() {
 
     $("#sortForm").on("change", (e) => {
+        var start_time = new Date().getTime();
 
         var id = $("#displayTable thead tr").find("th").eq(3).find("div").eq(0);
 
@@ -167,6 +168,8 @@ function activateSortButtons() {
                 complexity.click();
                 break;
         }
+        var delta_time = new Date().getTime() - start_time;
+        glogBrowser(sortBy, delta_time)
     });
 }
 
@@ -204,6 +207,8 @@ function searchPage() {
 }
 
 function queryQuotes(userText) {
+    var start_time = new Date().getTime();
+
     var table = $("#displayTable");
     table.addClass("clear");
     // table.html("<tr><th>Copy</th><th>Quotes</th><th class='sources'>Sources</th></tr>");
@@ -230,15 +235,21 @@ function queryQuotes(userText) {
         url: quoteServerUrl + "&mode=" + getQueryType(),
         contentType: "application/json",
         data: JSON.stringify(input_data)
-    }).done(displayQuery);
+    }).done(
+        (d) => {
+            displayQuery(d);
+            glogBrowser("query", new Date().getTime())
+        }
+    );
+
 }
 
 function getQueryType() {
     return $("#quoteTypeForm [name='option']:checked").val()
 }
 
-
 function displayQuery(d) {
+    var start_time = new Date().getTime();
     // First we must reset the table
     $("#table-wrapper").html("<table id='displayTable'></table>");
 
@@ -292,8 +303,7 @@ function displayQuery(d) {
 
     // Get the loading message to hide it
     $("#loading").addClass("clear");
-
-
+    glogBrowser("display", new Date().getTime() - start_time);
 }
 
 function removeNbsp() {
@@ -525,4 +535,14 @@ function gtagBrowser(name, category, label) {
      });
  
      EXCLUDE_IF_WEB */
+}
+
+function glogBrowser(name, delta) {
+    /* EXCLUDE_IF_WEB
+    gtag("event", 'timing_complete', {
+        'name': name,
+        'value': delta,
+        'event_category': "time_logging"
+    })
+    EXCLUDE_IF_WEB */
 }
