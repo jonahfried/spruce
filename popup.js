@@ -1,6 +1,6 @@
 const MAX_QUOTE_LEN = 300;
 
-let quoteServerUrl = "https://api.onelook.com/sentences";
+let quoteServerUrl = "https://api.onelook.com/sentences?k=spruce_chrome";
 
 window.addEventListener("DOMContentLoaded", function () {
     sizeIfExtension();
@@ -219,10 +219,15 @@ function queryQuotes(userText) {
     $("#noResults").addClass("clear");
     $("#noInput").addClass("clear");
 
-    var input_data = { "query": userText, "doc_mode": true, "selector": getQueryType(), "max_results": 50, "wke": false };
+    var selector = getQueryType();
+    var doc_mode = true;
+    var input_data = {
+        "query": userText, "doc_mode": doc_mode,
+        "selector": selector, "max_results": 50, "wke": false
+    };
     $.ajax({
         method: "POST",
-        url: quoteServerUrl,
+        url: quoteServerUrl + "&mode=" + getQueryType(),
         contentType: "application/json",
         data: JSON.stringify(input_data)
     }).done(displayQuery);
