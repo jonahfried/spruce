@@ -59,6 +59,23 @@ body h1 {
 .top-menu .help:focus {
     outline: none;
 }
+
+.top-menu .history {
+    position: absolute;
+    top: 0;
+    right: 30px;
+    fill: #333;
+    cursor: pointer;
+}
+
+.top-menu .history:hover {
+    fill: #75aa56;
+}
+
+.top-menu .history:focus {
+    outline: none;
+}
+
 .input-group-prepend:not(:first-child) button.input-group-text {
     border-radius: 0 10px 10px 0;
 }

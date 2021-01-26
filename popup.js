@@ -1,4 +1,5 @@
 const MAX_QUOTE_LEN = 300;
+const MAX_HIST_LEN = 25
 
 let quoteServerUrl = "https://api.onelook.com/sentences?k=spruce_chrome";
 
@@ -16,6 +17,8 @@ window.addEventListener("DOMContentLoaded", function () {
     // handleJokeToggle();
 
     // handleTheme();
+
+    activateSearchHistory();
 
     var quoteFinder = document.getElementById("findQuotes");
 
@@ -42,6 +45,27 @@ window.addEventListener("DOMContentLoaded", function () {
         chrome.tabs.create({ url: $(this).attr("href") });
     })
 });
+
+function activateSearchHistory() {
+    $("#historyButton").contextMenu({
+        menuSelector: "#searchHistoryMenu",
+        menuSelected: function ($invokedOn, $selectedMenu) {
+            // var msg = "MENU 1\nYou selected the menu item '" + $selectedMenu.text() + "' (" + $selectedMenu.attr("value") + ") " + " on the value '" + $invokedOn.text() + "'";
+            // alert(msg);
+            var row = $invokedOn.parent().parent();
+            console.log($selectedMenu.attr("value"));
+            $("#userInput").val($selectedMenu.attr("value"));
+            $("#userInput").focus();
+
+        },
+        onMenuShow: function ($invokedOn) {
+            console.log("showing history menu")
+        },
+        onMenuHide: function ($invokedOn) {
+            console.log("hiding history menu")
+        }
+    });
+}
 
 function activateThemeButton() {
     $("#sun").on("click", () => {
@@ -124,6 +148,30 @@ function sizeIfExtension() {
     }
 }
 
+
+function getContext() {
+    let params = new URLSearchParams(window.location.search);
+
+    if (!params.has("source")) {
+        return "tab"
+    }
+
+    switch (params.get("source")) {
+        case "extension":
+            return "extension"
+
+        case "context":
+            return "context"
+
+        case "tab":
+            return "tab"
+
+        default:
+            return "tab"
+    }
+}
+
+
 function activateHelpButton() {
     $(".help").on("click", function () {
         $("#helpInfo").toggleClass("clear");
@@ -199,11 +247,56 @@ function searchPage() {
 
     if (userText.trim() != "") {
         queryQuotes(userText);
+        storeHistory(userText);
     } else {
         $("#displayTable").addClass("clear");
         $("#sortForm").addClass("clear");
         $("#noInput").removeClass("clear");
     }
+}
+
+function storeHistory(userText) {
+    var newSearch = $('<div class="dropdown-item"></div>');
+    var shortenedText = userText.slice(0, 61);
+    if (userText.length >= 61) {
+        shortenedText = shortenedText + "..."
+    }
+    newSearch.attr("value", userText);
+    newSearch.html(shortenedText);
+
+    var menu = $("#searchHistoryMenu");
+    if (menu.children().length >= 9) {
+        menu.children()[menu.children().length - 1].remove()
+    }
+    menu.prepend(newSearch);
+
+
+    // if (getContext() == "tab") {
+    //     return
+    // }
+    // chrome.storage.sync.get(["quoteSearchHistory"], results => {
+    //     var history = results.quoteSearchHistory;
+
+    //     if (history == undefined) {
+    //         history = [];
+    //     }
+
+    //     history.push(userText)
+
+    //     if (history.length > MAX_HIST_LEN) {
+    //         history.shift()
+    //     }
+
+    //     chrome.storage.sync.set({ quoteSearchHistory: history }, () => {
+    //         console.log("saved history");
+    //     });
+    // })
+}
+
+function getHistory() {
+    chrome.storage.sync.get(["quoteSearchHistory"], results => {
+        return results.quoteSearchHistory;
+    })
 }
 
 function queryQuotes(userText) {
